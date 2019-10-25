@@ -15,7 +15,7 @@ UBJSON was chosen for a few reasons:
 2. It allows binary data to be stored without increasing file size much by taking advantage of the optimized container formats
 3. Arbitrary metadata of various types can be easily added and quickly parsed
 
-The .slp file has two core elements: raw and metadata.
+The .slp file has two core elements: raw and metadata. These elements will always show up in the same order in the file with the raw element first and the metadata element second.
 
 # The raw element
 The value for this element is an array of bytes that describe discrete events that were sent by the game to be written. These specific events will be broken down later. The data for the raw element is the largest part of the file and is truly what defines what happened during the game.
@@ -183,6 +183,8 @@ This event indicates the end of the game has occurred.
 
 # The metadata element
 The metadata element contains any miscellaneous data relevant to the game but not directly provided by Melee. Unlike all the other data defined in this doc, which was basically stored as a binary stream, the data in the metadata element is pure UBJSON.
+
+The metadata element can be read individually to save time with a bit of effort. For a complete file, the raw element will indicate its size, meaning the entire data block can be skipped in order to extract just the metadata element.
 
 Key | Type | Description
 | --- | --- | --- |
