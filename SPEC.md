@@ -114,6 +114,15 @@ Offsets are **indexed from the Game Start command byte** described above, they a
 | 0x7D + 0x24*i* | Defense Ratio | float | Indicates a knockback multiplier when this player is hit | 0.1.0
 | 0x81 + 0x24*i* | Model Scale | float | Indicates a multiplier on the size scaling of the character's model | 0.1.0
 
+### Frame Start
+Added in 2.2.0, frame start is an event added to transfer RNG seed at the very begining of a frame's processing to prevent desyncs such as the knockback spiral animation desync.
+
+| Offset | Name | Type | Description | Added
+| --- | --- | --- | --- | --- |
+| 0x0 | Command Byte | uint8 | (0x3A) The command byte for the frame start event | 2.2.0
+| 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 2.2.0
+| 0x5 | Random Seed | uint32 | The random seed at the start of the frame| 2.2.0
+
 ### Pre-Frame Update
 This event will occur exactly once per frame per character (Ice Climbers are 2 characters). Contains information required to **reconstruct a replay**. Information is collected right before controller inputs are used to figure out the character's next action.
 
@@ -172,6 +181,32 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x32 | Jumps Remaining | uint8 | Number of jumps remaining | 2.0.0
 | 0x33 | L-Cancel Status | uint8 | 0 = none, 1 = successful, 2 = unsuccessful | 2.0.0
 
+### Item Update
+Added in 3.0.0, a maximum of 15 items per frame can have their data extracted. This information can be used for stats, training AIs, or visualization engines to handle items. Note that these aren't just for "items" it also includes all projectiles such as fox lasers, sheik needles, etc.
+
+| Offset | Name | Type | Description | Added
+| --- | --- | --- | --- | --- |
+| 0x0 | Command Byte | uint8 | (0x3B) The command byte for the item update event | 3.0.0
+| 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 3.0.0
+| 0x5 | Type ID | uint16 | The type of item this is | 3.0.0
+| 0x7 | State | uint8 | The state the item is in. Mostly undocumented, might differ per type | 3.0.0
+| 0x8 | Facing Direction | float | -1 if facing left, +1 if facing right | 3.0.0
+| 0xC | X Velocity | float | X velocity of item | 3.0.0
+| 0x10 | Y Velocity | float | Y velocity of item | 3.0.0
+| 0x14 | X Position | float | X position of item | 3.0.0
+| 0x18 | Y Position | float | Y position of item | 3.0.0
+| 0x1C | Damage Taken | uint16 | Amount of damage an item has taken | 3.0.0
+| 0x1E | Expiration Timer | float | Number of frames remaining before item expires. Can go into the negatives for certain items such as link arrows | 3.0.0
+| 0x22 | Spawn ID | uint32 | Auto-incremented number whenever an item spawns: 0, 1, 2, 3, etc | 3.0.0
+
+### Frame Bookend
+Added in 3.0.0, the frame bookend is a simple event that can be used to determine that the entire frame's worth of data has been transferred/processed. It is always sent at the very end of the frame's transfer.
+
+| Offset | Name | Type | Description | Added
+| --- | --- | --- | --- | --- |
+| 0x0 | Command Byte | uint8 | (0x3C) The command byte for the frame bookend event | 3.0.0
+| 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 3.0.0
+
 ### Game End
 This event indicates the end of the game has occurred.
 
@@ -184,7 +219,7 @@ This event indicates the end of the game has occurred.
 # The metadata element
 The metadata element contains any miscellaneous data relevant to the game but not directly provided by Melee. Unlike all the other data defined in this doc, which was basically stored as a binary stream, the data in the metadata element is pure UBJSON.
 
-The metadata element can be read individually to save time with a bit of effort. For a complete file, the raw element will indicate its size, meaning the entire data block can be skipped in order to extract just the metadata element.
+The metadata element can be read individually to save processing time with a bit of effort. For a complete file, the raw element will indicate its size, meaning the entire data block can be skipped in order to extract just the metadata element.
 
 Key | Type | Description
 | --- | --- | --- |
