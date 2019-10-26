@@ -40,6 +40,9 @@ Every event is defined by a one byte code followed by a payload. The following t
 | Pre-Frame Update | 0x37 | One event per frame per character (Ice Climbers are 2 characters). Contains information required to **reconstruct a replay**. Information is collected right before controller inputs are used to figure out the character's next action. |
 | Post-Frame Update | 0x38 | One event per frame per character (Ice Climbers are 2 characters). Contains information for **making decisions about game states**, such as computing stats. Information is collected at the end of the Collision detection which is the last consideration of the game engine. |
 | Game End | 0x39 | Indicates the end of the game. |
+| Frame Start | 0x3A | This event includes the RNG seed and frame number at the start of a frame's processing |
+| Item Update | 0x3B | One event per frame per item with a maximum of 15 updates per frame. This information can be used for stats, training AIs, or visualization engines to handle items. Items include projectiles like lasers or needles. |
+| Frame Bookend | 0x3C | An event that can be used to determine that the entire frame's worth of data has been transferred/processed |
 
 ### Endianness
 As per the UBJSON spec, all integer types are written in **big-endian** format. And by a happy coincidence, all integers in the game data byte stream are also written in big-endian format.
@@ -115,7 +118,7 @@ Offsets are **indexed from the Game Start command byte** described above, they a
 | 0x81 + 0x24*i* | Model Scale | float | Indicates a multiplier on the size scaling of the character's model | 0.1.0
 
 ### Frame Start
-Added in 2.2.0, frame start is an event added to transfer RNG seed at the very begining of a frame's processing to prevent desyncs such as the knockback spiral animation desync.
+Added in 2.2.0, frame start is an event added to transfer RNG seed at the very beginning of a frame's processing to prevent desyncs such as the knockback spiral animation desync.
 
 | Offset | Name | Type | Description | Added
 | --- | --- | --- | --- | --- |
