@@ -97,6 +97,8 @@ Next, you will need to open the Settings menu on the Wii, and under the Internet
 ![alt_text](https://i.ibb.co/1JHBnRQ/unnamed-11.gif "image_tooltip")
 Once you click Wired Connection, it should initiate an internet connection test, and if this guide has been followed faithfully, it should succeed. If it does _not_ succeed, then most like you have incorrectly shared the internet connection of your PC, or have an incompatible adapter for the Wii.
 
+<b>You do not need to repeat this step after you’ve done it once. Do not clear your settings unless you know you can remake the connection and have a good reason to do so.</b>
+
 ---
 **<span style="text-decoration:underline;">Step 6</span>**
 
