@@ -331,11 +331,11 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x20 | Last Hit By | uint8 | The player that last hit this player | 0.1.0
 | 0x21 | Stocks Remaining | uint8 | Number of stocks remaining | 0.1.0
 | 0x22 | Action State Frame Counter | float | Number of frames action state has been active. Can have a fractional component for certain actions | 0.2.0
-| 0x26 | State Bit Flags 1 | 8 bits | See table State Bit Flags 1 | 2.0.0
-| 0x27 | State Bit Flags 2 | 8 bits | See table State Bit Flags 2 | 2.0.0
-| 0x28 | State Bit Flags 3 | 8 bits | See table State Bit Flags 3 | 2.0.0
-| 0x29 | State Bit Flags 4 | 8 bits | See table State Bit Flags 4 | 2.0.0
-| 0x2A | State Bit Flags 5 | 8 bits | See table State Bit Flags 5 | 2.0.0
+| 0x26 | State Bit Flags 1 | uint8 | See table State Bit Flags 1 | 2.0.0
+| 0x27 | State Bit Flags 2 | uint8 | See table State Bit Flags 2 | 2.0.0
+| 0x28 | State Bit Flags 3 | uint8 | See table State Bit Flags 3 | 2.0.0
+| 0x29 | State Bit Flags 4 | uint8 | See table State Bit Flags 4 | 2.0.0
+| 0x2A | State Bit Flags 5 | uint8 | See table State Bit Flags 5 | 2.0.0
 | 0x2B | Misc AS (Hitstun remaining) | float | Can be used for different things. While in hitstun, contains hitstun frames remaining | 2.0.0
 | 0x2F | Ground/Air State | bool | 0 = grounded, 1 = airborne | 2.0.0
 | 0x30 | Last Ground ID | uint16 | ID of the last ground the character stood on | 2.0.0
