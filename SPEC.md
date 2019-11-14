@@ -369,7 +369,7 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x33 | L-Cancel Status | uint8 | 0 = none, 1 = successful, 2 = unsuccessful | 2.0.0
 
 #### State Bit Flags 1
-Found in [Post-Frame Update] (#post-frame-update).
+Found in [Post-Frame Update](#post-frame-update).
 
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
@@ -383,7 +383,7 @@ Found in [Post-Frame Update] (#post-frame-update).
 | 8 | 0x80 | Unknown
 
 #### State Bit Flags 2
-Found in [Post-Frame Update] (#post-frame-update).
+Found in [Post-Frame Update](#post-frame-update).
 
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
@@ -397,7 +397,7 @@ Found in [Post-Frame Update] (#post-frame-update).
 | 8 | 0x80 | Unknown
 
 #### State Bit Flags 3
-Found in [Post-Frame Update] (#post-frame-update).
+Found in [Post-Frame Update](#post-frame-update).
 
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
@@ -411,7 +411,7 @@ Found in [Post-Frame Update] (#post-frame-update).
 | 8 | 0x80 | Is shield active
 
 #### State Bit Flags 4
-Found in [Post-Frame Update] (#post-frame-update).
+Found in [Post-Frame Update](#post-frame-update).
 
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
@@ -425,7 +425,7 @@ Found in [Post-Frame Update] (#post-frame-update).
 | 8 | 0x80 | Unknown
 
 #### State Bit Flags 5
-Found in [Post-Frame Update] (#post-frame-update).
+Found in [Post-Frame Update](#post-frame-update).
 
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
