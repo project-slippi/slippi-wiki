@@ -285,7 +285,7 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x25 | C-Stick Y | float | Processed analog value of Y axis of C-stick (range: [-1, 1]) | 0.1.0
 | 0x29 | Trigger | float | Processed analog value of trigger (range: [0, 1]) | 0.1.0
 | 0x2D | Processed Buttons | uint32 | See the table [Processed Buttons](#processed-buttons) | 0.1.0
-| 0x31 | Physical Buttons | uint16 | See the table [Physical Buttons}(#physical-buttons) | 0.1.0
+| 0x31 | Physical Buttons | uint16 | See the table [Physical Buttons](#physical-buttons) | 0.1.0
 | 0x33 | Physical L Trigger | float | Physical analog value of L trigger (range: [0, 1]). Useful for APM | 0.1.0
 | 0x37 | Physical R Trigger | float | Physical analog value of R trigger (range: [0, 1]). Useful for APM | 0.1.0
 | 0x3B | X analog for UCF | uint8 | Raw X axis analog controller input. Used by UCF dashback code | 1.2.0
