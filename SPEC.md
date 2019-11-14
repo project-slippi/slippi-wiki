@@ -292,7 +292,7 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x3C | Percent | float | Current damage percent | 1.4.0
 
 #### Processed Buttons
-Look at bits set to see processed buttons pressed. Lower uint16 is equivalent to the `Physical Buttons` field, see table [Physical Buttons](#physical-buttons). Found in [Pre-Frame Update](#pre-frame-update).
+Look at bits set to see processed buttons pressed. Lower uint16 has the same structure as the `Physical Buttons` field, see table [Physical Buttons](#physical-buttons). Found in [Pre-Frame Update](#pre-frame-update).
 
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
