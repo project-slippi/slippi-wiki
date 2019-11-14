@@ -17,7 +17,7 @@ UBJSON was chosen for a few reasons:
 
 The .slp file has two core elements: raw and metadata. These elements will always show up in the same order in the file with the raw element first and the metadata element second.
 
-# The raw element
+# The `raw` Element
 The value for this element is an array of bytes that describe discrete events that were sent by the game to be written. These specific events will be broken down later. The data for the raw element is the largest part of the file and is truly what defines what happened during the game.
 
 The element is defined in optimized format, this is done such that the metadata element can be found and parsed much more easily irrespective of what size it is. The optimized format also enables the type definition to be dropped for each array value which greatly conserves space. You can find more information about optimized container formats in the UBJSON spec.
@@ -44,10 +44,27 @@ Every event is defined by a one byte code followed by a payload. The following t
 | Item Update | 0x3B | One event per frame per item with a maximum of 15 updates per frame. This information can be used for stats, training AIs, or visualization engines to handle items. Items include projectiles like lasers or needles | 3.0.0
 | Frame Bookend | 0x3C | An event that can be used to determine that the entire frame's worth of data has been transferred/processed | 3.0.0
 
-### Endianness
-As per the UBJSON spec, all integer types are written in **big-endian** format. And by a happy coincidence, all integers in the game data byte stream are also written in big-endian format.
+### Data Types
+Ranges are specified in this document with inclusive notation, i.e. [0, 255] means that 0 and 255 are both valid values and so are any values in between.
 
-This means that whether you are looking at the length of the byte stream as described in the previous section or if you are looking at what stage was selected for the game, the byte order is consistent.
+| Name | Description |
+| --- | --- |
+| uint8 | An integer type composed of 8 bits. Range is [0, 255]
+| uint16 | An integer type composed of 16 bits. Range is [0, 65535]
+| uint32 | An integer type composed of 32 bits. Range is [0, 4294967295]
+| int8 | An integer type composed of 8 bits. Range is [-128, 127]. Assumed to be [two's complement representation](https://en.wikipedia.org/wiki/Two's_complement)
+| int16 | An integer type composed of 16 bits. Range is [-32768, 32767]. Assumed to be [two's complement representation](https://en.wikipedia.org/wiki/Two's_complement)
+| int32 | An integer type composed of 32 bits. Range is [-2147483648, 2147483647]. Assumed to be [two's complement representation](https://en.wikipedia.org/wiki/Two's_complement)
+| [1] | Indicates an array type containing the specified count of elements
+| float | A floating point type of 32 bits. Assumed to be [IEEE 754 binary floating point representation](https://en.wikipedia.org/wiki/IEEE_754)
+| bool | A special-purpose uint8 type that indicates it should hold the value 0 or 1
+| string | A UBJSON string value
+| object | A UBJSON object value
+
+### Endianness
+As per the UBJSON spec, all numeric types are written in **big-endian** format. And by a happy coincidence, all numeric values in the game data byte stream are also written in big-endian format.
+
+This means that whether you are looking at the length of the byte stream as described in [The `raw` Element](#the-raw-element) or if you are looking at what stage was selected for the game, the byte order is consistent.
 
 ### Backwards Compatibility
 In order to maintain backward compatibility it is important that any new fields added to a payload are **added to the end**. Because the payload sizes are provided up-front, a new parser reading an old replay file will still be able to parse the file correctly under the condition that fields have not changed position. The new parser must be able to handle the case where "new" fields are not present in the "old" file.
@@ -57,71 +74,192 @@ Maintaining forward compatibility for new events should work similarly. An old p
 ### Melee IDs
 Some of the values in the event payloads are IDs internal to the game. Luckily for us Dan Salvato and other contributors have documented these pretty extensively in a Google sheet.
 
-* [Character IDs](https://docs.google.com/spreadsheets/d/1JX2w-r2fuvWuNgGb6D3Cs4wHQKLFegZe2jhbBuIhCG8/edit#gid=20)
-* [Action State IDs](https://docs.google.com/spreadsheets/d/1JX2w-r2fuvWuNgGb6D3Cs4wHQKLFegZe2jhbBuIhCG8/edit#gid=13)
-* [Character-Specific Action State IDs](https://docs.google.com/spreadsheets/d/1Nu3hSc1U6apOhU4JIJaWRC4Lj0S1inN8BFsq3Y8cFjI/edit)
+* [Character/Stage/Item IDs](https://docs.google.com/spreadsheets/d/1JX2w-r2fuvWuNgGb6D3Cs4wHQKLFegZe2jhbBuIhCG8/preview#gid=20)
+* [Action State IDs](https://docs.google.com/spreadsheets/d/1JX2w-r2fuvWuNgGb6D3Cs4wHQKLFegZe2jhbBuIhCG8/preview#gid=13)
+* [Character-Specific Action State IDs](https://docs.google.com/spreadsheets/d/1Nu3hSc1U6apOhU4JIJaWRC4Lj0S1inN8BFsq3Y8cFjI/preview)
 
 ### Event Payloads
 This event should be the very first event in the byte stream. It enumerates all possible events and their respective payload sizes that may be encountered in the byte stream. An event showing up in here does not imply it will be in the stream, only that if it does occur, it will have the specified size.
 
 | Offset | Name | Type | Description |
 | --- | --- | --- | --- |
-| 0x0 | Command Byte | uint8 | (0x35) The command byte for the event payloads event |
-| 0x1 | Payload Size | uint8 | The size in bytes of the payload for this event, including this byte (i.e. `3n+1`, where `n` is the number of commands to follow) |
-| 0x2 + 0x3*i* | Other Command Byte | uint8 | A command byte that may be encountered in the byte stream. *i* is dependent on the payload size, the rest of the payload is all command/size pairs |
-| 0x3 + 0x3*i* | Other Command Payload Size | uint16 | The size in bytes of the payload for the command |
+| 0x0 | Command Byte | uint8 | (0x35) The command byte for the event payloads event
+| 0x1 | Payload Size | uint8 | The size in bytes of the payload for this event, including this byte (i.e. `3n+1`, where `n` is the number of commands to follow)
+| 0x2 + 0x3*i* | Other Command Byte | uint8 | A command byte that may be encountered in the byte stream. *i* is dependent on the payload size, the rest of the payload is all command/size pairs
+| 0x3 + 0x3*i* | Other Command Payload Size | uint16 | The size in bytes of the payload for the command
 
 ### Game Start
-This is data that will be transferred as the game is starting. It includes all the information required to initialize the game such as the game mode, settings, characters selected, stage selected. The entire block that contains all of this data is written out in the `Game Info Block` but not all of it is understood/documented. This event will occur exactly once in the stream.
+This is data that will be transferred as the game is starting. It includes all the information required to initialize the game such as the game mode, settings, characters selected, stage selected. The entire block that contains all of this data is written out in the [`Game Info Block`](#game-info-block) but not all of it is understood/documented. This event will occur exactly once in the stream.
 
 | Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
 | 0x0 | Command Byte | uint8 | (0x36) The command byte for the game start event | 0.1.0
 | 0x1 | Version | uint8[4] | 4 bytes describing the current extraction code version. `major.minor.build.unused` | 0.1.0
-| 0x5 | Game Info Block | uint8[312] | Full game info block that Melee reads from to initialize a game. For a breakdown of the bytes, see the table Game Info Block | 0.1.0
+| 0x5 | Game Info Block | uint8[312] | Full game info block that Melee reads from to initialize a game. For a breakdown of the bytes, see the table [Game Info Block](#game-info-block) | 0.1.0
 | 0x13D | Random Seed | uint32 | The random seed before the game start | 0.1.0
-| 0x141 + 0x8*i* | Dashback Fix | uint32 | Controller fix dashback option (0=off, 1=UCF, 2=Dween). *i* is 0-3 depending on the character port. | 1.0.0
-| 0x145 + 0x8*i* | Shield Drop Fix | uint32 | Controller fix shield drop option (0=off, 1=UCF, 2=Dween). *i* is 0-3 depending on the character port. | 1.0.0
-| 0x161 + 0x10*i* | Nametag | uint16[8] | Nametags used by the players. *i* is 0-3 depending on the character port. | 1.3.0
+| 0x141 + 0x8*i* | Dashback Fix | uint32 | Controller fix dashback option (0 = off, 1 = UCF, 2 = Dween). *i* is 0-3 depending on the character port. | 1.0.0
+| 0x145 + 0x8*i* | Shield Drop Fix | uint32 | Controller fix shield drop option (0 = off, 1 = UCF, 2 = Dween). *i* is 0-3 depending on the character port. | 1.0.0
+| 0x161 + 0x10*i* | Nametag | uint16[8] | Nametags used by the players. *i* is 0-3 depending on the character port. Nametags are [Shift-JIS](https://en.wikipedia.org/wiki/Shift_JIS) encoded. The English characters are full width characters and [can be converted](https://github.com/project-slippi/slp-parser-js/blob/master/src/utils/fullwidth.ts) to normal ASCII/half width characters | 1.3.0
 | 0x1A1 | PAL | bool | Value is 1 if PAL is enabled, 0 otherwise | 1.5.0
-| 0x1A2 | Frozen PS | bool | Value is 1 if frozen stadium is enabled, 0 otherwise | 2.0.0
+| 0x1A2 | Frozen PS | bool | Value is 1 if frozen Pokémon Stadium is enabled, 0 otherwise | 2.0.0
 
 #### Game Info Block
-Offsets are **indexed from the Game Start command byte** described above, they are not indexed from the start of the Game Info Block.
+Offsets are **indexed from the [Game Start](#game-start) command byte** described above, they are not indexed from the start of the Game Info Block.
 
 | Offset | Name | Type | Description |
 | --- | --- | --- | --- |
-| 0x5 | Game Bitfield 1 | uint8 | Bits 1 and 2 describe the behavior of the timer. No timer = 0, counting down timer = 2, counting up timer = 3. Bits 3-5 when shifted twice to the right will describe the quantity of character places in the UI. Bits 6-8 when shifted five times to the right will describe the game mode. 0 = time, 1 = stock, 2 = coin, 3 = bonus
-| 0x6 | Game Bitfield 2 | uint8 | Bit 1 indicates that Friendly Fire is on (0x01)
-| 0x8 | Game Bitfield 3 | uint8 | Bit 2 indicates that the standard play HUD should be hidden during pause (0x02). Bit 3 indicates that the LRAStart UI should be shown during pause (0x04). Bit 4 indicates that pause is disabled (0x08). Bit 7 indicates that the analog stick should be shown on the pause UI (0x40)
+| 0x5 | Game Bitfield 1 | uint8 | See the table [Game Bitfield 1](#game-bitfield-1)
+| 0x6 | Game Bitfield 2 | uint8 | See the table [Game Bitfield 2](#game-bitfield-2)
+| 0x8 | Game Bitfield 3 | uint8 | See the table [Game Bitfield 3](#game-bitfield-3)
 | 0xD | Is Teams | bool | Value is 1 if teams game, 0 otherwise
 | 0x10 | Item Spawn Behavior | int8 | Indicates how frequently items spawn. -1 = off, 0 = very low, 1 = low, 2 = medium, 3 = high, 4 = very high
 | 0x11 | Self Destruct Score Value | int8 | Indicates how an SD should be interpreted for scoring. Can be -2, -1, or 0 if set by the game
-| 0x13 | Stage | uint16 | Stage ID
+| 0x13 | Stage | uint16 | [Stage ID](#melee-ids)
 | 0x15 | Game Timer | uint32 | The number of seconds for the timer. Will be specified in this field regardless of game mode
-| 0x28 | Item Spawn Bitfield 1 | uint8 | Bits 4-8 are unknown. Pokéball = 0x04, Cloaking Device = 0x02, Metal Box = 0x01
-| 0x29 | Item Spawn Bitfield 2 | uint8 | Bunny Hood = 0x80, Screw Attack = 0x40, Warp Star = 0x20, Hammer = 0x10, Poison Mushroom = 0x08, Super Mushroom = 0x04, Fire Flower = 0x02, Fan = 0x01
-| 0x2A | Item Spawn Bitfield 3 | uint8 | Lip's Stick = 0x80, Star Rod = 0x40, Super Scope = 0x20, Flipper = 0x10, Motion Sensor Bomb = 0x08, Food = 0x04, Freezie = 0x02, Ray Gun = 0x01
-| 0x2B | Item Spawn Bitfield 4 | uint8 | Red Shell = 0x80, Green Shell = 0x40, Parasol = 0x20, Beam Sword = 0x10, Home Run Bat = 0x08, Starman = 0x04, Maxim Tomato = 0x02, Heart Container = 0x01
-| 0x2C | Item Spawn Bitfield 5 | uint8 | Mr. Saturn = 0x80, Bob-omb = 0x40, Barrel Cannon = 0x20, Party Ball = 0x10, Bits 5-8 are unknown
+| 0x28 | Item Spawn Bitfield 1 | uint8 | See the table [Item Spawn Bitfield 1](#item-spawn-bitfield-1)
+| 0x29 | Item Spawn Bitfield 2 | uint8 | See the table [Item Spawn Bitfield 2](#item-spawn-bitfield-2)
+| 0x2A | Item Spawn Bitfield 3 | uint8 | See the table [Item Spawn Bitfield 3](#item-spawn-bitfield-3)
+| 0x2B | Item Spawn Bitfield 4 | uint8 | See the table [Item Spawn Bitfield 4](#item-spawn-bitfield-4)
+| 0x2C | Item Spawn Bitfield 5 | uint8 | See the table [Item Spawn Bitfield 5](#item-spawn-bitfield-5)
 | 0x35 | Damage Ratio | float | Indicates the Damage Ratio
-| 0x65 + 0x24*i* | External Character ID | uint8 | The player's character ID. *i* is 0-3 depending on the character port. Port 1 is *i* = 0, Port 2 is *i* = 1, and so on. There are 6 characters worth of data present in the block, but only 4 are supported by Slippi.
+| 0x65 + 0x24*i* | External Character ID | uint8 | The player's [character ID](#melee-ids). *i* is 0-3 depending on the character port. Port 1 is *i* = 0, Port 2 is *i* = 1, and so on. There are 6 characters worth of data present in the block, but only 4 are supported by Slippi.
 | 0x66 + 0x24*i* | Player Type | uint8 | 0 = human, 1 = CPU, 2 = demo, 3 = empty
 | 0x67 + 0x24*i* | Stock Start Count | uint8 | Stocks this player starts with
 | 0x68 + 0x24*i* | Costume Index | uint8 | Indicates which costume index the player used. Does not map to an actual color, e.g. blue Young Link and blue Falcon have different values
 | 0x6C + 0x24*i* | Team Shade | uint8 | Indicates coloration changes for multiples of the same character on the same team. 0 = normal, 1 = light, 2 = dark
 | 0x6D + 0x24*i* | Handicap | uint8 | The handicap set on the player. Will affect offense/defense ratios later in the player record
 | 0x6E + 0x24*i* | Team ID | uint8 | Value only relevant if `is teams` is true. 0 = red, 1 = blue, 2 = green
-| 0x71 + 0x24*i* | Player Bitfield | uint8 | Bit 8 indicates the player has rumble enabled (0x80). All other bits unknown
+| 0x71 + 0x24*i* | Player Bitfield | uint8 | See the table [Player Bitfield](#player-bitfield)
 | 0x74 + 0x24*i* | CPU Level | uint8 | Indicates what the CPU level is. Still specified on human players
 | 0x79 + 0x24*i* | Offense Ratio | float | Indicates a knockback multiplier when this player hits another
 | 0x7D + 0x24*i* | Defense Ratio | float | Indicates a knockback multiplier when this player is hit
 | 0x81 + 0x24*i* | Model Scale | float | Indicates a multiplier on the size scaling of the character's model
 
+##### Game Bitfield 1
+Found in [Game Info Block](#game-info-block).
+
+| Bit Numbers | Bit Mask | Description |
+| --- | --- | --- |
+| 1-2 | 0x03 | Behavior of the timer. 0 = no timer, 2 = counting down timer, 3 = counting up timer
+| 3-5 | 0x1C | Quantity of character places in the UI
+| 6-8 | 0xE0 | Game mode. 0 = time, 1 = stock, 2 = coin, 3 = bonus
+
+##### Game Bitfield 2
+Found in [Game Info Block](#game-info-block).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Friendly fire is on
+| 2 | 0x02 | Unknown
+| 3 | 0x04 | Unknown
+| 4 | 0x08 | Unknown
+| 5 | 0x10 | Unknown
+| 6 | 0x20 | Unknown
+| 7 | 0x40 | Unknown
+| 8 | 0x80 | Unknown
+
+##### Game Bitfield 3
+Found in [Game Info Block](#game-info-block).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Unknown
+| 2 | 0x02 | Standard play HUD should be hidden during pause
+| 3 | 0x04 | LRAStart UI should be shown during pause
+| 4 | 0x08 | Pause is disabled
+| 5 | 0x10 | Unknown
+| 6 | 0x20 | Unknown
+| 7 | 0x40 | Analog stick should be shown in pause UI
+| 8 | 0x80 | Unknown
+
+##### Item Spawn Bitfield 1
+Found in [Game Info Block](#game-info-block).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Metal Box
+| 2 | 0x02 | Cloaking Device
+| 3 | 0x04 | Pokéball
+| 4 | 0x08 | Unknown
+| 5 | 0x10 | Unknown
+| 6 | 0x20 | Unknown
+| 7 | 0x40 | Unknown
+| 8 | 0x80 | Unknown
+
+##### Item Spawn Bitfield 2
+Found in [Game Info Block](#game-info-block).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Fan
+| 2 | 0x02 | Fire Flower
+| 3 | 0x04 | Super Mushroom
+| 4 | 0x08 | Poison Mushroom
+| 5 | 0x10 | Hammer
+| 6 | 0x20 | Warp Star
+| 7 | 0x40 | Screw Attack
+| 8 | 0x80 | Bunny Hood
+
+##### Item Spawn Bitfield 3
+Found in [Game Info Block](#game-info-block).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Ray Gun
+| 2 | 0x02 | Freezie
+| 3 | 0x04 | Food
+| 4 | 0x08 | Motion Sensor Bomb
+| 5 | 0x10 | Flipper
+| 6 | 0x20 | Super Scope
+| 7 | 0x40 | Star Rod
+| 8 | 0x80 | Lip's Stick
+
+##### Item Spawn Bitfield 4
+Found in [Game Info Block](#game-info-block).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Heart Container
+| 2 | 0x02 | Maxim Tomato
+| 3 | 0x04 | Starman
+| 4 | 0x08 | Home Run Bat
+| 5 | 0x10 | Beam Sword
+| 6 | 0x20 | Parasol
+| 7 | 0x40 | Green Shell
+| 8 | 0x80 | Red Shell
+
+##### Item Spawn Bitfield 5
+Found in [Game Info Block](#game-info-block).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Unknown
+| 2 | 0x02 | Unknown
+| 3 | 0x04 | Unknown
+| 4 | 0x08 | Unknown
+| 5 | 0x10 | Party Ball
+| 6 | 0x20 | Barrel Cannon
+| 7 | 0x40 | Bob-omb
+| 8 | 0x80 | Mr. Saturn
+
+##### Player Bitfield
+Found in [Game Info Block](#game-info-block).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Unknown
+| 2 | 0x02 | Unknown
+| 3 | 0x04 | Unknown
+| 4 | 0x08 | Unknown
+| 5 | 0x10 | Unknown
+| 6 | 0x20 | Unknown
+| 7 | 0x40 | Unknown
+| 8 | 0x80 | Rumble enabled
+ 
 ### Frame Start
 Frame start is an event added to transfer RNG seed at the very beginning of a frame's processing to prevent desyncs such as the knockback spiral animation desync.
 
-| Offset | Name | Type | Description | Added
+| Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
 | 0x0 | Command Byte | uint8 | (0x3A) The command byte for the frame start event | 2.2.0
 | 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 2.2.0
@@ -130,28 +268,73 @@ Frame start is an event added to transfer RNG seed at the very beginning of a fr
 ### Pre-Frame Update
 This event will occur exactly once per frame per character (Ice Climbers are 2 characters). Contains information required to **reconstruct a replay**. Information is collected right before controller inputs are used to figure out the character's next action. The post-frame update contains the appropriate character ID to make sense of the action state present here.
 
-| Offset | Name | Type | Description | Added
+| Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
 | 0x0 | Command Byte | uint8 | (0x37) The command byte for the pre-frame update event | 0.1.0
 | 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 0.1.0
 | 0x5 | Player Index | uint8 | Between 0 and 3. Port is index + 1 | 0.1.0
 | 0x6 | Is Follower | bool | Value is 1 for Nana and 0 otherwise | 0.1.0
 | 0x7 | Random Seed | uint32 | The random seed at this point | 0.1.0
-| 0xB | Action State ID | uint16 | Indicates the state the character is in. Very useful for stats | 0.1.0
+| 0xB | Action State ID | uint16 | Indicates the [action state](#melee-ids) the character is in. Very useful for stats | 0.1.0
 | 0xD | X Position | float | X position of character | 0.1.0
 | 0x11 | Y Position | float | Y position of character | 0.1.0
-| 0x15 | Facing Direction | float | -1 if facing left, +1 if facing right (range: [-1, 1]) | 0.1.0
+| 0x15 | Facing Direction | float | -1 = facing left, +1 = facing right | 0.1.0
 | 0x19 | Joystick X | float | Processed analog value of X axis of joystick (range: [-1, 1]) | 0.1.0
 | 0x1D | Joystick Y | float | Processed analog value of Y axis of joystick (range: [-1, 1]) | 0.1.0
-| 0x21 | C-Stick X | float | Processed analog value of X axis of c-stick (range: [-1, 1]) | 0.1.0
-| 0x25 | C-Stick Y | float | Processed analog value of Y axis of c-stick (range: [-1, 1]) | 0.1.0
+| 0x21 | C-Stick X | float | Processed analog value of X axis of C-stick (range: [-1, 1]) | 0.1.0
+| 0x25 | C-Stick Y | float | Processed analog value of Y axis of C-stick (range: [-1, 1]) | 0.1.0
 | 0x29 | Trigger | float | Processed analog value of trigger (range: [0, 1]) | 0.1.0
-| 0x2D | Buttons | uint32 | Processed buttons. Look at bits set to see processed buttons pressed. Lower uint16 is equivalent to the `Physical Buttons` field. Upper uint16 has the following values: 0x10000 = Joystick Up, 0x20000 = Joystick Down, 0x40000 = Joystick Left, 0x80000 = Joystick Right, 0x100000 = C-Stick Up, 0x200000 = C-Stick Down, 0x400000 = C-Stick Left, 0x800000 = C-Stick Right, 0x80000000 = Trigger | 0.1.0
-| 0x31 | Physical Buttons | uint16 | Use bits set to determine physical buttons pressed. Useful for APM. Bitwise mapping is `***S YXBA *LRZ UDRL`. `*` represents an unused bit | 0.1.0
+| 0x2D | Processed Buttons | uint32 | See the table [Processed Buttons](#processed-buttons) | 0.1.0
+| 0x31 | Physical Buttons | uint16 | See the table [Physical Buttons](#physical-buttons) | 0.1.0
 | 0x33 | Physical L Trigger | float | Physical analog value of L trigger (range: [0, 1]). Useful for APM | 0.1.0
 | 0x37 | Physical R Trigger | float | Physical analog value of R trigger (range: [0, 1]). Useful for APM | 0.1.0
-| 0x3B | X analog for UCF | uint8 | Raw x analog controller input. Used by UCF dashback code | 1.2.0
+| 0x3B | X analog for UCF | uint8 | Raw X axis analog controller input. Used by UCF dashback code | 1.2.0
 | 0x3C | Percent | float | Current damage percent | 1.4.0
+
+#### Processed Buttons
+Look at bits set to see processed buttons pressed. Lower uint16 has the same structure as the `Physical Buttons` field, see table [Physical Buttons](#physical-buttons). Found in [Pre-Frame Update](#pre-frame-update).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1-16 | `---` | See table [Physical Buttons](#physical-buttons)
+| 17 | 0x00010000 | Joystick up
+| 18 | 0x00020000 | Joystick down
+| 19 | 0x00040000 | Joystick left
+| 20 | 0x00080000 | Joystick right
+| 21 | 0x00100000 | C-stick up
+| 22 | 0x00200000 | C-stick down
+| 23 | 0x00400000 | C-stick left
+| 24 | 0x00800000 | C-stick right
+| 25 | 0x01000000 | Unused
+| 26 | 0x02000000 | Unused
+| 27 | 0x04000000 | Unused
+| 28 | 0x08000000 | Unused
+| 29 | 0x10000000 | Unused
+| 30 | 0x20000000 | Unused
+| 31 | 0x40000000 | Unused
+| 32 | 0x80000000 | Any trigger
+
+#### Physical Buttons
+Use bits set to determine physical buttons pressed. Useful for APM. Found in [Pre-Frame Update](#pre-frame-update).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x0001 | D-pad left
+| 2 | 0x0002 | D-pad right
+| 3 | 0x0004 | D-pad down
+| 4 | 0x0008 | D-pad up
+| 5 | 0x0010 | Z
+| 6 | 0x0020 | R trigger digital press
+| 7 | 0x0040 | L trigger digital press
+| 8 | 0x0080 | Unused
+| 9 | 0x0100 | A
+| 10 | 0x0200 | B
+| 11 | 0x0400 | X
+| 12 | 0x0800 | Y
+| 13 | 0x1000 | Start
+| 14 | 0x2000 | Unused
+| 15 | 0x4000 | Unused
+| 16 | 0x8000 | Unused
 
 ### Post-Frame Update
 This event will occur exactly once per frame per character (Ice Climbers are 2 characters). Contains information for **making decisions about game states**, such as computing stats. Information is collected at the end of the Collision detection which is the last consideration of the game engine.
@@ -162,11 +345,11 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 0.1.0
 | 0x5 | Player Index | uint8 | Between 0 and 3. Port is index + 1 | 0.1.0
 | 0x6 | Is Follower | bool | Value is 1 for Nana and 0 otherwise | 0.1.0
-| 0x7 | Internal Character ID | uint8 | Internal character ID. Can only change throughout game for Zelda/Sheik. Before 1.6.0, check frame -123 to determine if Zelda started as Sheik. After 1.6.0, the game start character ID should be consistent with the started character | 0.1.0
-| 0x8 | Action State ID | uint16 | Indicates the state the character is in. Very useful for stats | 0.1.0
+| 0x7 | Internal Character ID | uint8 | Internal [character ID](#melee-ids). Can only change throughout game for Zelda/Sheik. Before 1.6.0, check frame -123 to determine if Zelda started as Sheik. After 1.6.0, the game start character ID should be consistent with the started character | 0.1.0
+| 0x8 | Action State ID | uint16 | Indicates the [action state](#melee-ids) the character is in. Very useful for stats | 0.1.0
 | 0xA | X Position | float | X position of character | 0.1.0
 | 0xE | Y Position | float | Y position of character | 0.1.0
-| 0x12 | Facing Direction | float | -1 if facing left, +1 if facing right | 0.1.0
+| 0x12 | Facing Direction | float | -1 = facing left, +1 = facing right | 0.1.0
 | 0x16 | Percent | float | Current damage percent | 0.1.0
 | 0x1A | Shield Size | float | Current size of shield (range: [0, 60]) | 0.1.0
 | 0x1E | Last Attack Landed | uint8 | ID of last attack that hit enemy | 0.1.0
@@ -174,39 +357,109 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x20 | Last Hit By | uint8 | The player that last hit this player | 0.1.0
 | 0x21 | Stocks Remaining | uint8 | Number of stocks remaining | 0.1.0
 | 0x22 | Action State Frame Counter | float | Number of frames action state has been active. Can have a fractional component for certain actions | 0.2.0
-| 0x26 | State Bit Flags 1 | 8 bits | Bits indicate state flags. Known bits: `0x10 = isReflectActive` | 2.0.0
-| 0x27 | State Bit Flags 2 | 8 bits | Bits indicate state flags. Known bits: `0x04 = HasIntangOrInvinc` `0x08 = isFastFalling` `0x20 = isHitlag` | 2.0.0
-| 0x28 | State Bit Flags 3 | 8 bits | Bits indicate state flags. Known bits: `0x80 = isShieldActive` | 2.0.0
-| 0x29 | State Bit Flags 4 | 8 bits | Bits indicate state flags. Known bits: `0x2 = isHitstun` `0x4 = owners detection hitbox touching shield bubble` `0x20 = Powershield Active Bool` | 2.0.0
-| 0x2A | State Bit Flags 5 | 8 bits | Bits indicate state flags. Known bits: `0x80 = isOffscreen` `0x40 = isDead` `0x10 = inSleep` `0x8 = isFollower` | 2.0.0
-| 0x2B | Misc AS (Hitstun remaining) | float | Can be used for different things. While isHitstun true, contains hitstun frames remaining | 2.0.0
-| 0x2F | Ground/Air State | bool | 0 if grounded, 1 is airborne | 2.0.0
+| 0x26 | State Bit Flags 1 | uint8 | See table [State Bit Flags 1](#state-bit-flags-1) | 2.0.0
+| 0x27 | State Bit Flags 2 | uint8 | See table [State Bit Flags 2](#state-bit-flags-2) | 2.0.0
+| 0x28 | State Bit Flags 3 | uint8 | See table [State Bit Flags 3](#state-bit-flags-3) | 2.0.0
+| 0x29 | State Bit Flags 4 | uint8 | See table [State Bit Flags 4](#state-bit-flags-4) | 2.0.0
+| 0x2A | State Bit Flags 5 | uint8 | See table [State Bit Flags 5](#state-bit-flags-5) | 2.0.0
+| 0x2B | Misc AS (Hitstun remaining) | float | Can be used for different things. While in hitstun, contains hitstun frames remaining | 2.0.0
+| 0x2F | Ground/Air State | bool | 0 = grounded, 1 = airborne | 2.0.0
 | 0x30 | Last Ground ID | uint16 | ID of the last ground the character stood on | 2.0.0
 | 0x32 | Jumps Remaining | uint8 | Number of jumps remaining | 2.0.0
 | 0x33 | L-Cancel Status | uint8 | 0 = none, 1 = successful, 2 = unsuccessful | 2.0.0
 
+#### State Bit Flags 1
+Found in [Post-Frame Update](#post-frame-update).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Unknown
+| 2 | 0x02 | Unknown
+| 3 | 0x04 | Unknown
+| 4 | 0x08 | Unknown
+| 5 | 0x10 | Is reflect active
+| 6 | 0x20 | Unknown
+| 7 | 0x40 | Unknown
+| 8 | 0x80 | Unknown
+
+#### State Bit Flags 2
+Found in [Post-Frame Update](#post-frame-update).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Unknown
+| 2 | 0x02 | Unknown
+| 3 | 0x04 | Has intangibility or invincibility
+| 4 | 0x08 | Is fastfalling
+| 5 | 0x10 | Unknown
+| 6 | 0x20 | Is in hitlag
+| 7 | 0x40 | Unknown
+| 8 | 0x80 | Unknown
+
+#### State Bit Flags 3
+Found in [Post-Frame Update](#post-frame-update).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Unknown
+| 2 | 0x02 | Unknown
+| 3 | 0x04 | Unknown
+| 4 | 0x08 | Unknown
+| 5 | 0x10 | Unknown
+| 6 | 0x20 | Unknown
+| 7 | 0x40 | Unknown
+| 8 | 0x80 | Is shield active
+
+#### State Bit Flags 4
+Found in [Post-Frame Update](#post-frame-update).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Unknown
+| 2 | 0x02 | Is in hitstun
+| 3 | 0x04 | Owners detection hitbox touching shield bubble
+| 4 | 0x08 | Unknown
+| 5 | 0x10 | Unknown
+| 6 | 0x20 | Powershield active
+| 7 | 0x40 | Unknown
+| 8 | 0x80 | Unknown
+
+#### State Bit Flags 5
+Found in [Post-Frame Update](#post-frame-update).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Unknown
+| 2 | 0x02 | Unknown
+| 3 | 0x04 | Unknown
+| 4 | 0x08 | Is follower (e.g. Nana)
+| 5 | 0x10 | Is in action state Sleep
+| 6 | 0x20 | Unknown
+| 7 | 0x40 | Is dead
+| 8 | 0x80 | Is offscreen
+ 
 ### Item Update
 A maximum of 15 items per frame can have their data extracted. This information can be used for stats, training AIs, or visualization engines to handle items. Note that these aren't just for "items" it also includes all projectiles such as Fox lasers, Sheik needles, etc.
 
-| Offset | Name | Type | Description | Added
+| Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
 | 0x0 | Command Byte | uint8 | (0x3B) The command byte for the item update event | 3.0.0
 | 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 3.0.0
-| 0x5 | Type ID | uint16 | The type of item this is | 3.0.0
+| 0x5 | Type ID | uint16 | The [type of item](#melee-ids) this is | 3.0.0
 | 0x7 | State | uint8 | The state the item is in. Mostly undocumented, might differ per type | 3.0.0
-| 0x8 | Facing Direction | float | -1 if facing left, +1 if facing right | 3.0.0
+| 0x8 | Facing Direction | float | -1 = facing left, +1 = facing right | 3.0.0
 | 0xC | X Velocity | float | X velocity of item | 3.0.0
 | 0x10 | Y Velocity | float | Y velocity of item | 3.0.0
 | 0x14 | X Position | float | X position of item | 3.0.0
 | 0x18 | Y Position | float | Y position of item | 3.0.0
 | 0x1C | Damage Taken | uint16 | Amount of damage an item has taken | 3.0.0
-| 0x1E | Expiration Timer | float | Number of frames remaining before item expires. Can go into the negatives for certain items such as link arrows | 3.0.0
+| 0x1E | Expiration Timer | float | Number of frames remaining before item expires. Can go into the negatives for certain items such as Link arrows | 3.0.0
 | 0x22 | Spawn ID | uint32 | Auto-incremented number whenever an item spawns: 0, 1, 2, 3, etc | 3.0.0
 
 ### Frame Bookend
 The frame bookend is a simple event that can be used to determine that the entire frame's worth of data has been transferred/processed. It is always sent at the very end of the frame's transfer.
 
-| Offset | Name | Type | Description | Added
+| Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
 | 0x0 | Command Byte | uint8 | (0x3C) The command byte for the frame bookend event | 3.0.0
 | 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 3.0.0
@@ -214,26 +467,26 @@ The frame bookend is a simple event that can be used to determine that the entir
 ### Game End
 This event indicates the end of the game has occurred. If present, this will occur exactly once in the stream. It may not be present.
 
-| Offset | Name | Type | Description | Added
+| Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
 | 0x0 | Command Byte | uint8 | (0x39) The command byte for the game end event | 0.1.0
-| 0x1 | Game End Method | uint8 | See following table | 0.1.0
+| 0x1 | Game End Method | uint8 | See table [Game End Method](#game-end-method) | 0.1.0
 | 0x2 | LRAS Initiator | int8 | Index of player that LRAS'd. -1 if not applicable | 2.0.0
 
 #### Game End Method
-The behavior of this field depends on the version.
+The behavior of this field depends on the version. Found in [Game End](#game-end).
 
 | Version | Values |
 | --- | --- |
 | 0.1.0 | 0 = Unresolved, 3 = resolved
 | 2.0.0 | 1 = TIME!, 2 = GAME!, 7 = No Contest
 
-# The metadata element
+# The `metadata` Element
 The metadata element contains any miscellaneous data relevant to the game but not directly provided by Melee. Unlike all the other data defined in this doc, which was basically stored as a binary stream, the data in the metadata element is pure UBJSON.
 
 The metadata element can be read individually to save processing time with a bit of effort. For a complete file, the raw element will indicate its size, meaning the entire data block can be skipped in order to extract just the metadata element.
 
-Key | Type | Description |
+| Key | Type | Description |
 | --- | --- | --- |
 | startAt | string | Timestamp of when the game started, ISO 8601 format (e.g. `2018-06-22T07:52:59Z`)
 | lastFrame | int32 | The frame number of the last frame of the game. Used to show game duration without parsing entire replay
