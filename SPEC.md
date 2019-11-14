@@ -89,7 +89,7 @@ This event should be the very first event in the byte stream. It enumerates all 
 | 0x3 + 0x3*i* | Other Command Payload Size | uint16 | The size in bytes of the payload for the command
 
 ### Game Start
-This is data that will be transferred as the game is starting. It includes all the information required to initialize the game such as the game mode, settings, characters selected, stage selected. The entire block that contains all of this data is written out in the `Game Info Block` but not all of it is understood/documented. This event will occur exactly once in the stream.
+This is data that will be transferred as the game is starting. It includes all the information required to initialize the game such as the game mode, settings, characters selected, stage selected. The entire block that contains all of this data is written out in the [`Game Info Block`](#game-info-block) but not all of it is understood/documented. This event will occur exactly once in the stream.
 
 | Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
@@ -104,7 +104,7 @@ This is data that will be transferred as the game is starting. It includes all t
 | 0x1A2 | Frozen PS | bool | Value is 1 if frozen Pokémon Stadium is enabled, 0 otherwise | 2.0.0
 
 #### Game Info Block
-Offsets are **indexed from the Game Start command byte** described above, they are not indexed from the start of the Game Info Block.
+Offsets are **indexed from the [Game Start](#game-start) command byte** described above, they are not indexed from the start of the Game Info Block.
 
 | Offset | Name | Type | Description |
 | --- | --- | --- | --- |
