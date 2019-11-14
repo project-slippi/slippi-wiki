@@ -419,7 +419,7 @@ Found in [Post-Frame Update](#post-frame-update).
 | 2 | 0x02 | Is in hitstun
 | 3 | 0x04 | Owners detection hitbox touching shield bubble
 | 4 | 0x08 | Unknown
-| 5 | 0x10 | Is reflect active
+| 5 | 0x10 | Unknown
 | 6 | 0x20 | Powershield active
 | 7 | 0x40 | Unknown
 | 8 | 0x80 | Unknown
