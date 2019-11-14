@@ -52,9 +52,9 @@ Ranges are specified in this document with inclusive notation, i.e. [0, 255] mea
 | uint8 | An integer type composed of 8 bits. Range is [0, 255]
 | uint16 | An integer type composed of 16 bits. Range is [0, 65535]
 | uint32 | An integer type composed of 32 bits. Range is [0, 4294967295]
-| int8 | An integer type composed of 8 bits. Range is [-127, 128]. Assumed to be [two's complement representation](https://en.wikipedia.org/wiki/Two's_complement)
-| int16 | An integer type composed of 16 bits. Range is [-32767, 32768]. Assumed to be [two's complement representation](https://en.wikipedia.org/wiki/Two's_complement)
-| int32 | An integer type composed of 32 bits. Range is [-2147483647, 2147483648]. Assumed to be [two's complement representation](https://en.wikipedia.org/wiki/Two's_complement)
+| int8 | An integer type composed of 8 bits. Range is [-128, 127]. Assumed to be [two's complement representation](https://en.wikipedia.org/wiki/Two's_complement)
+| int16 | An integer type composed of 16 bits. Range is [-32768, 32767]. Assumed to be [two's complement representation](https://en.wikipedia.org/wiki/Two's_complement)
+| int32 | An integer type composed of 32 bits. Range is [-2147483648, 2147483647]. Assumed to be [two's complement representation](https://en.wikipedia.org/wiki/Two's_complement)
 | [1] | Indicates an array type containing the specified count of elements
 | float | A floating point type of 32 bits. Assumed to be [IEEE 754 binary floating point representation](https://en.wikipedia.org/wiki/IEEE_754)
 | bool | A special-purpose uint8 type that indicates it should hold the value 0 or 1
