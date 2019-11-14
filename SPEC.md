@@ -74,7 +74,7 @@ Maintaining forward compatibility for new events should work similarly. An old p
 ### Melee IDs
 Some of the values in the event payloads are IDs internal to the game. Luckily for us Dan Salvato and other contributors have documented these pretty extensively in a Google sheet.
 
-* [Character IDs](https://docs.google.com/spreadsheets/d/1JX2w-r2fuvWuNgGb6D3Cs4wHQKLFegZe2jhbBuIhCG8/preview#gid=20)
+* [Character/Stage/Item IDs](https://docs.google.com/spreadsheets/d/1JX2w-r2fuvWuNgGb6D3Cs4wHQKLFegZe2jhbBuIhCG8/preview#gid=20)
 * [Action State IDs](https://docs.google.com/spreadsheets/d/1JX2w-r2fuvWuNgGb6D3Cs4wHQKLFegZe2jhbBuIhCG8/preview#gid=13)
 * [Character-Specific Action State IDs](https://docs.google.com/spreadsheets/d/1Nu3hSc1U6apOhU4JIJaWRC4Lj0S1inN8BFsq3Y8cFjI/preview)
 
