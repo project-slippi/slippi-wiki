@@ -114,7 +114,7 @@ Offsets are **indexed from the [Game Start](#game-start) command byte** describe
 | 0xD | Is Teams | bool | Value is 1 if teams game, 0 otherwise
 | 0x10 | Item Spawn Behavior | int8 | Indicates how frequently items spawn. -1 = off, 0 = very low, 1 = low, 2 = medium, 3 = high, 4 = very high
 | 0x11 | Self Destruct Score Value | int8 | Indicates how an SD should be interpreted for scoring. Can be -2, -1, or 0 if set by the game
-| 0x13 | Stage | uint16 | Stage ID
+| 0x13 | Stage | uint16 | [Stage ID](#melee-ids)
 | 0x15 | Game Timer | uint32 | The number of seconds for the timer. Will be specified in this field regardless of game mode
 | 0x28 | Item Spawn Bitfield 1 | uint8 | See the table [Item Spawn Bitfield 1](#item-spawn-bitfield-1)
 | 0x29 | Item Spawn Bitfield 2 | uint8 | See the table [Item Spawn Bitfield 2](#item-spawn-bitfield-2)
@@ -122,7 +122,7 @@ Offsets are **indexed from the [Game Start](#game-start) command byte** describe
 | 0x2B | Item Spawn Bitfield 4 | uint8 | See the table [Item Spawn Bitfield 4](#item-spawn-bitfield-4)
 | 0x2C | Item Spawn Bitfield 5 | uint8 | See the table [Item Spawn Bitfield 5](#item-spawn-bitfield-5)
 | 0x35 | Damage Ratio | float | Indicates the Damage Ratio
-| 0x65 + 0x24*i* | External Character ID | uint8 | The player's character ID. *i* is 0-3 depending on the character port. Port 1 is *i* = 0, Port 2 is *i* = 1, and so on. There are 6 characters worth of data present in the block, but only 4 are supported by Slippi.
+| 0x65 + 0x24*i* | External Character ID | uint8 | The player's [character ID](#melee-ids). *i* is 0-3 depending on the character port. Port 1 is *i* = 0, Port 2 is *i* = 1, and so on. There are 6 characters worth of data present in the block, but only 4 are supported by Slippi.
 | 0x66 + 0x24*i* | Player Type | uint8 | 0 = human, 1 = CPU, 2 = demo, 3 = empty
 | 0x67 + 0x24*i* | Stock Start Count | uint8 | Stocks this player starts with
 | 0x68 + 0x24*i* | Costume Index | uint8 | Indicates which costume index the player used. Does not map to an actual color, e.g. blue Young Link and blue Falcon have different values
@@ -275,7 +275,7 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x5 | Player Index | uint8 | Between 0 and 3. Port is index + 1 | 0.1.0
 | 0x6 | Is Follower | bool | Value is 1 for Nana and 0 otherwise | 0.1.0
 | 0x7 | Random Seed | uint32 | The random seed at this point | 0.1.0
-| 0xB | Action State ID | uint16 | Indicates the state the character is in. Very useful for stats | 0.1.0
+| 0xB | Action State ID | uint16 | Indicates the [action state](#melee-ids) the character is in. Very useful for stats | 0.1.0
 | 0xD | X Position | float | X position of character | 0.1.0
 | 0x11 | Y Position | float | Y position of character | 0.1.0
 | 0x15 | Facing Direction | float | -1 = facing left, +1 = facing right | 0.1.0
@@ -345,8 +345,8 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 0.1.0
 | 0x5 | Player Index | uint8 | Between 0 and 3. Port is index + 1 | 0.1.0
 | 0x6 | Is Follower | bool | Value is 1 for Nana and 0 otherwise | 0.1.0
-| 0x7 | Internal Character ID | uint8 | Internal character ID. Can only change throughout game for Zelda/Sheik. Before 1.6.0, check frame -123 to determine if Zelda started as Sheik. After 1.6.0, the game start character ID should be consistent with the started character | 0.1.0
-| 0x8 | Action State ID | uint16 | Indicates the state the character is in. Very useful for stats | 0.1.0
+| 0x7 | Internal Character ID | uint8 | Internal [character ID](#melee-ids). Can only change throughout game for Zelda/Sheik. Before 1.6.0, check frame -123 to determine if Zelda started as Sheik. After 1.6.0, the game start character ID should be consistent with the started character | 0.1.0
+| 0x8 | Action State ID | uint16 | Indicates the [action state](#melee-ids) the character is in. Very useful for stats | 0.1.0
 | 0xA | X Position | float | X position of character | 0.1.0
 | 0xE | Y Position | float | Y position of character | 0.1.0
 | 0x12 | Facing Direction | float | -1 = facing left, +1 = facing right | 0.1.0
@@ -445,7 +445,7 @@ A maximum of 15 items per frame can have their data extracted. This information 
 | --- | --- | --- | --- | --- |
 | 0x0 | Command Byte | uint8 | (0x3B) The command byte for the item update event | 3.0.0
 | 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 3.0.0
-| 0x5 | Type ID | uint16 | The type of item this is | 3.0.0
+| 0x5 | Type ID | uint16 | The [type of item](#melee-ids) this is | 3.0.0
 | 0x7 | State | uint8 | The state the item is in. Mostly undocumented, might differ per type | 3.0.0
 | 0x8 | Facing Direction | float | -1 = facing left, +1 = facing right | 3.0.0
 | 0xC | X Velocity | float | X velocity of item | 3.0.0
