@@ -353,7 +353,7 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x12 | Facing Direction | float | -1 = facing left, +1 = facing right | 0.1.0
 | 0x16 | Percent | float | Current damage percent | 0.1.0
 | 0x1A | Shield Size | float | Current size of shield (range: [0, 60]) | 0.1.0
-| 0x1E | Last Hitting Attack ID | uint8 | [ID](#melee-ids) of the last attack that hit a player. Attacks that "hit" reflectors or absorbers do not modify this field. Link/Young Link's shield behaves as an absorber. If a reflector is used and the reflected projectile hits the enemy, the ID of the projectile is used and not the ID of the reflector. This field corresponds to move staling. Any attack with ID 1 does not participate in staling. This field is set back to 0 on death | 0.1.0
+| 0x1E | Last Hitting Attack ID | uint8 | [ID](#melee-ids) of the last attack that hit a player. Attacks that "hit" reflectors, counters, or absorbers do not modify this field. Link/Young Link's shield behaves as an absorber. If a reflector is used and the reflected projectile hits the enemy, the ID of the projectile is used and not the ID of the reflector. This field corresponds to move staling. Any attack with ID 1 does not participate in staling. This field is set back to 0 on death | 0.1.0
 | 0x1F | Current Combo Count | uint8 | The combo count as defined by the game | 0.1.0
 | 0x20 | Last Hit By | uint8 | The player that last hit this player | 0.1.0
 | 0x21 | Stocks Remaining | uint8 | Number of stocks remaining | 0.1.0
