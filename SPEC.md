@@ -77,6 +77,7 @@ Some of the values in the event payloads are IDs internal to the game. Luckily f
 * [Character/Stage/Item IDs](https://docs.google.com/spreadsheets/d/1JX2w-r2fuvWuNgGb6D3Cs4wHQKLFegZe2jhbBuIhCG8/preview#gid=20)
 * [Action State IDs](https://docs.google.com/spreadsheets/d/1JX2w-r2fuvWuNgGb6D3Cs4wHQKLFegZe2jhbBuIhCG8/preview#gid=13)
 * [Character-Specific Action State IDs](https://docs.google.com/spreadsheets/d/1Nu3hSc1U6apOhU4JIJaWRC4Lj0S1inN8BFsq3Y8cFjI/preview)
+* [Attack IDs](https://docs.google.com/spreadsheets/d/1spibzWaitiA22s7db1AEw1hqQXzPDNFZHYjc4czv2dc/preview)
 
 ### Event Payloads
 This event should be the very first event in the byte stream. It enumerates all possible events and their respective payload sizes that may be encountered in the byte stream. An event showing up in here does not imply it will be in the stream, only that if it does occur, it will have the specified size.
@@ -352,7 +353,7 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x12 | Facing Direction | float | -1 = facing left, +1 = facing right | 0.1.0
 | 0x16 | Percent | float | Current damage percent | 0.1.0
 | 0x1A | Shield Size | float | Current size of shield (range: [0, 60]) | 0.1.0
-| 0x1E | Last Attack Landed | uint8 | ID of last attack that hit enemy | 0.1.0
+| 0x1E | Last Hitting Attack ID | uint8 | [ID](#melee-ids) of the last attack that hit a player. Attacks that "hit" reflectors, counters, or absorbers do not modify this field. Link/Young Link's shield behaves as an absorber. If a reflector is used and the reflected projectile hits the enemy, the ID of the projectile is used and not the ID of the reflector. This field corresponds to move staling. Any attack with ID 1 does not participate in staling. This field is set back to 0 on death | 0.1.0
 | 0x1F | Current Combo Count | uint8 | The combo count as defined by the game | 0.1.0
 | 0x20 | Last Hit By | uint8 | The player that last hit this player | 0.1.0
 | 0x21 | Stocks Remaining | uint8 | Number of stocks remaining | 0.1.0
