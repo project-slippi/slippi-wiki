@@ -368,6 +368,7 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x30 | Last Ground ID | uint16 | ID of the last ground the character stood on | 2.0.0
 | 0x32 | Jumps Remaining | uint8 | Number of jumps remaining | 2.0.0
 | 0x33 | L-Cancel Status | uint8 | 0 = none, 1 = successful, 2 = unsuccessful | 2.0.0
+| 0x34 | Hurtbox Collision State | uint8 | 0 = vulnerable, 1 = invulnerable, 2 = intangible | 2.1.0
 
 #### State Bit Flags 1
 Found in [Post-Frame Update](#post-frame-update).
