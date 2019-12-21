@@ -6,3 +6,4 @@
 | [Console Replay Guide](https://github.com/project-slippi/slippi-wiki/blob/master/CONSOLE_REPLAYS.md) | Guide to setting up a Wii to generate replays. |
 | [Console Mirroring Guide](https://github.com/project-slippi/slippi-wiki/blob/master/CONSOLE_MIRRORING.md) | Guide to setting up a Wii to mirror gameplay on a computer. |
 | [Direct Connect Guide](https://github.com/project-slippi/slippi-wiki/blob/master/DIRECT_CONNECT.md) | Guide to using a computer in place of a router for the wii network connection. |
+| [Slippi Stats Documentation](https://github.com/project-slippi/slippi-wiki/blob/master/SLIPPI_STATS.md) | Documentation on the various stats that the Slippi Desktop App provides. |
