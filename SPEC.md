@@ -256,7 +256,7 @@ Found in [Game Info Block](#game-info-block).
 | 6 | 0x20 | Unknown
 | 7 | 0x40 | Unknown
 | 8 | 0x80 | Rumble enabled
- 
+
 ### Frame Start
 Frame start is an event added to transfer RNG seed at the very beginning of a frame's processing to prevent desyncs such as the knockback spiral animation desync.
 
@@ -369,6 +369,11 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x32 | Jumps Remaining | uint8 | Number of jumps remaining | 2.0.0
 | 0x33 | L-Cancel Status | uint8 | 0 = none, 1 = successful, 2 = unsuccessful | 2.0.0
 | 0x34 | Hurtbox Collision State | uint8 | 0 = vulnerable, 1 = invulnerable, 2 = intangible | 2.1.0
+| 0x35 | Self-induced Air x Speed  | float | Negative means left, Positive means right | 3.5.0
+| 0x39 | Self-induced y Speed  | float | Negative means down, Positive means up | 3.5.0
+| 0x3d | Attack-based x Speed  | float | Negative means left, Positive means right | 3.5.0
+| 0x41 | Attack-based y Speed  | float | Negative means down, Positive means up | 3.5.0
+| 0x45 | Self-induced Ground x Speed  | float | Negative means left, Positive means right | 3.5.0
 
 #### State Bit Flags 1
 Found in [Post-Frame Update](#post-frame-update).
@@ -439,7 +444,7 @@ Found in [Post-Frame Update](#post-frame-update).
 | 6 | 0x20 | Unknown
 | 7 | 0x40 | Is dead
 | 8 | 0x80 | Is offscreen
- 
+
 ### Item Update
 A maximum of 15 items per frame can have their data extracted. This information can be used for stats, training AIs, or visualization engines to handle items. Note that these aren't just for "items" it also includes all projectiles such as Fox lasers, Sheik needles, etc.
 
