@@ -497,6 +497,14 @@ The metadata element can be read individually to save processing time with a bit
 | --- | --- | --- |
 | startAt | string | Timestamp of when the game started, ISO 8601 format (e.g. `2018-06-22T07:52:59Z`)
 | lastFrame | int32 | The frame number of the last frame of the game. Used to show game duration without parsing entire replay
-| players | object | Metadata for the individual players. Contains character-use statistics and netplay names if played on Dolphin (example: `{'characters': {'18': 5209}, 'names': {'netplay': 'Player'}}` means the player used Marth (internal character ID `18`) for all `5209` frames of the game and had the name `Player` set in Dolphin). Mostly useful for Zelda/Sheik.
+| players | object | Metadata for the individual players. See table [Players Metadata](#players-metadata)
 | playedOn | string | Platform the game was played on (values include `dolphin`, `console`, and `network`)
 | consoleNick | string | The name of the console the replay was created on.
+
+#### Players Metadata
+| Key | Type | Description |
+| --- | --- | --- |
+| characters | object | Contains the number of frames for which a character was used. This is mostly useful for Zelda/Sheik
+| names | object | Contains the Dolphin netplay name or Slippi Online Display Name depending on which form of netplay was used. Will also contain the connect code for Slippi Online if applicable.
+
+Example: `{'characters': {'18': 5209}, 'names': {'netplay': 'Player', 'code': 'ABCD#0'}}` means the player used Marth (internal character ID `18`) for all `5209` frames of the game and had the Display Name `Player` and Connect Code `ABCD#0`. The netplay name from Dolphin and Display Name from Slippi Online use the same key.
