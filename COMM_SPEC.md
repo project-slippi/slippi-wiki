@@ -1,5 +1,5 @@
 # Intro
-This document will outline the details of the Slippi Dolphin communication file (.json). This file is used to direct a Slippi Playback Dolphin to the correct Slippi replay file.
+This document will outline the details of the Slippi Dolphin communication file (.json). This file is used to direct a Slippi Playback Dolphin to the correct Slippi replay file. Dolphin can be loaded with a json by launching it like so: `<dolphin binary> -i <json path>`.
 
 ## Top Level JSON
 
