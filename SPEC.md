@@ -43,6 +43,8 @@ Every event is defined by a one byte code followed by a payload. The following t
 | Frame Start | 0x3A | This event includes the RNG seed and frame number at the start of a frame's processing | 2.2.0
 | Item Update | 0x3B | One event per frame per item with a maximum of 15 updates per frame. This information can be used for stats, training AIs, or visualization engines to handle items. Items include projectiles like lasers or needles | 3.0.0
 | Frame Bookend | 0x3C | An event that can be used to determine that the entire frame's worth of data has been transferred/processed | 3.0.0
+| Gecko List | 0x3D | An event that enumerates the Gecko code list for dynamic gecko codes. As it can be very large, the list is broken up into multiple 0x10 messages | 3.3.0
+
 
 ### Data Types
 Ranges are specified in this document with inclusive notation, i.e. [0, 255] means that 0 and 255 are both valid values and so are any values in between.
