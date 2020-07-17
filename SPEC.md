@@ -44,7 +44,8 @@ Every event is defined by a one byte code followed by a payload. The following t
 | Item Update | 0x3B | One event per frame per item with a maximum of 15 updates per frame. This information can be used for stats, training AIs, or visualization engines to handle items. Items include projectiles like lasers or needles | 3.0.0
 | Frame Bookend | 0x3C | An event that can be used to determine that the entire frame's worth of data has been transferred/processed | 3.0.0
 | Gecko List | 0x3D | An event that lists gecko codes. As it can be very large, the list is broken up into multiple messages | 3.3.0
-| Message Splitter | 0x10 | A byte code that signifies that a message has been split due to size | 3.3.0
+
+Some event payload messages are split into smaller messages due to size. `0x10` is the byte designated to split these messages. These messages are in the following format: `[0x10] [fixed block size (0x512)] [size (u16)] [internal command (u8)] [last message (bool)]`. The messages are continuously read until the `last message` boolean returns `true`.
 
 
 ### Data Types
