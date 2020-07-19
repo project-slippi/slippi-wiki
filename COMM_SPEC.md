@@ -18,7 +18,7 @@ This document will outline the details of the Slippi Dolphin communication file 
 
 | Name | Type | Description |
 | --- | --- | --- |
-| path | string | the path to the replay if in normal or mirror mode |
+| path | string | the path to the replay |
 | startFrame | int | the frame you would like to start the replay on, default is `-123` |
 | endFrame | int | the frame you would like to end the replay on, default is `INT_MAX` |
 | gameStartAt | string | any string is fine, but it is typically for the time of the replay |
