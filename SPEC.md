@@ -479,6 +479,7 @@ The frame bookend is a simple event that can be used to determine that the entir
 | --- | --- | --- | --- | --- |
 | 0x0 | Command Byte | uint8 | (0x3C) The command byte for the frame bookend event | 3.0.0
 | 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 3.0.0
+| 0x5 | Latest Finalized Frame | int32 | For non-rollback, this should always equal the frame number. For rollback, this indicates the index of a frame which is guaranteed not to happen again (finalized). This is very useful when reading a file in real-time to make sure you are processing "finalized" information | 3.7.0
 
 ### Message Splitter
 Some event payload messages are split into smaller messages due to size. Messages are continuously read until the `last message` boolean returns true. Currently the only event payload to use this is the `Gecko Codes` event.
