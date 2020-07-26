@@ -43,6 +43,8 @@ Every event is defined by a one byte code followed by a payload. The following t
 | Frame Start | 0x3A | This event includes the RNG seed and frame number at the start of a frame's processing | 2.2.0
 | Item Update | 0x3B | One event per frame per item with a maximum of 15 updates per frame. This information can be used for stats, training AIs, or visualization engines to handle items. Items include projectiles like lasers or needles | 3.0.0
 | Frame Bookend | 0x3C | An event that can be used to determine that the entire frame's worth of data has been transferred/processed | 3.0.0
+| Gecko List | 0x3D | An event that lists gecko codes. As it can be very large, the list is broken up into multiple messages | 3.3.0
+
 
 ### Data Types
 Ranges are specified in this document with inclusive notation, i.e. [0, 255] means that 0 and 255 are both valid values and so are any values in between.
@@ -475,6 +477,19 @@ The frame bookend is a simple event that can be used to determine that the entir
 | --- | --- | --- | --- | --- |
 | 0x0 | Command Byte | uint8 | (0x3C) The command byte for the frame bookend event | 3.0.0
 | 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 3.0.0
+
+### Message Splitter
+Some event payload messages are split into smaller messages due to size. Messages are continuously read until the `last message` boolean returns true. Currently the only event payload to use this is the `Gecko Codes` event.
+
+| Offset | Name | Type | Description | Added |
+| --- | --- | --- | --- | --- |
+| 0x0 | Command Byte | uint8 | (0x10) The command byte for the message splitter event | 3.3.0
+| 0x1 | Fixed Size Block | uint8[512] | The contents of the message - may not evenly contain the message | 3.3.0
+| 0x201 | Actual Size | uint16 | The actual number of bytes contained in the section | 3.3.0
+| 0x203 | Internal Command | uint8 | The command byte for the internal command | 3.3.0
+| 0x204 | Last Message | bool | The boolean representing whether this message is the last | 3.3.0
+
+
 
 ### Game End
 This event indicates the end of the game has occurred. If present, this will occur exactly once in the stream. It may not be present.
