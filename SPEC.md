@@ -105,6 +105,8 @@ This is data that will be transferred as the game is starting. It includes all t
 | 0x161 + 0x10*i* | Nametag | uint16[8] | Nametags used by the players. *i* is 0-3 depending on the character port. Nametags are [Shift-JIS](https://en.wikipedia.org/wiki/Shift_JIS) encoded. The English characters are full width characters and [can be converted](https://github.com/project-slippi/slp-parser-js/blob/master/src/utils/fullwidth.ts) to normal ASCII/half width characters | 1.3.0
 | 0x1A1 | PAL | bool | Value is 1 if PAL is enabled, 0 otherwise | 1.5.0
 | 0x1A2 | Frozen PS | bool | Value is 1 if frozen Pokémon Stadium is enabled, 0 otherwise | 2.0.0
+| 0x1A3 | Minor Scene | u8 | Minor scene number. Mostly useless atm, should always be 0x2 | 3.7.0
+| 0x1A4 | Major Scene | u8 | Major scene number. 0x2 when the game is played from VS mode, 0x8 when online game (has rollbacks) | 3.7.0
 
 #### Game Info Block
 Offsets are **indexed from the [Game Start](#game-start) command byte** described above, they are not indexed from the start of the Game Info Block.
