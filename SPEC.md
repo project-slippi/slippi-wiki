@@ -92,7 +92,7 @@ This event should be the very first event in the byte stream. It enumerates all 
 | 0x3 + 0x3*i* | Other Command Payload Size | uint16 | The size in bytes of the payload for the command
 
 ### Game Start
-This is data that will be transferred as the game is starting. It includes all the information required to initialize the game such as the game mode, settings, characters selected, stage selected. The entire block that contains all of this data is written out in the [`Game Info Block`](#game-info-block) but not all of it is understood/documented. This event will occur exactly once in the stream.
+This is data that will be transferred as the game is starting. It includes all the information required to initialize the game such as the game mode, settings, characters selected, stage selected. The entire block that contains all of this data is written out in the [`Game Info Block`](#game-info-block) but not all of it is understood/documented. This event will occur exactly once in the stream, immediately after the Event Payloads.
 
 | Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
@@ -492,10 +492,8 @@ Some event payload messages are split into smaller messages due to size. Message
 | 0x203 | Internal Command | uint8 | The command byte for the internal command | 3.3.0
 | 0x204 | Last Message | bool | The boolean representing whether this message is the last | 3.3.0
 
-
-
 ### Game End
-This event indicates the end of the game has occurred. If present, this will occur exactly once in the stream. It may not be present.
+This event indicates the end of the game has occurred. This event will occur exactly once, as the last event in the stream. (Note: there is an unresolved bug where Game End doesn't appear in some replays!)
 
 | Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
