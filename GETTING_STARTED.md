@@ -15,17 +15,17 @@ This document is meant to assist developers interested in learning about and con
 ### The Project
 The Slippi project is comprised of a number of different applications, each with their own purpose. Below is an overview of each of these applications function, and their relevant technologies.
 
-<b> Ishiiruka </b> - A modified version of the Dolphin emulator. This project is responsible for handling things like: communication with the matchmaking server, writing Slippi replay files, passing external data to the emulated game, and playing replays. 
+<b> [Ishiiruka](https://github.com/project-slippi/Ishiiruka) </b> - A modified version of the Dolphin emulator. This project is responsible for handling things like: communication with the matchmaking server, writing Slippi replay files, passing external data to the emulated game, and playing replays. 
 <br> <i> Languages: </i> C++ 
 
-<b> Slippi SSBM ASM </b> - A series of ASM mods that are applied to Melee in order make Slippi work.
+<b> [Slippi SSBM ASM](https://github.com/project-slippi/slippi-ssbm-asm) </b> - A series of ASM mods that are applied to Melee in order make Slippi work.
 <br> <i> Languages: </i> PPC Assembly
 
-<b> Slippi Desktop App </b> - A desktop application that allows users to view statstics about previous matches, and launch replays.
+<b> [Slippi Desktop App](https://github.com/project-slippi/slippi-desktop-app) </b> - A desktop application that allows users to view statstics about previous matches, and launch replays.
 <br> <i> Languages: </i> JavaScript
 <br> <i> Frameworks: </i> Electron, React
 
-<b> Slippi-JS </b> - A JavaScript library that is used to parse .slp files, and allows for the calculation of game statistics. 
+<b> [Slippi-JS](https://github.com/project-slippi/slippi-js) </b> - A JavaScript library that is used to parse .slp files, and allows for the calculation of game statistics. 
 <br> <i> Languages: </i> JavaScript
 
 ### The Workflow
