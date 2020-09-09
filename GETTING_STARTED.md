@@ -53,10 +53,11 @@ The source code for the matchmaking server is in a private repository, and is no
 * [SSBM Data Sheet](https://docs.google.com/spreadsheets/d/1JX2w-r2fuvWuNgGb6D3Cs4wHQKLFegZe2jhbBuIhCG8/preview#gid=12) - A Google Sheet containing information about Melee's memory addresses.
 * [Assembler Tutorial](http://wiibrew.org/wiki/Assembler_Tutorial) - A wii modding specific guide to PPC, and its instructions. 
 * [Intro to Wii Game Modding by InternetExplorer](https://www.youtube.com/watch?v=IOyQhK2OCs0&list=PL6GfYYW69Pa2L8ZuT5lGrJoC8wOWvbIQv) (video) - Recorded by Dan Salvato - A playlist of videos related to modding Wii games. An excellent resource for debugging with Dolphin.
+* [PowerPC Instruction Set Reference Card](http://www.tentech.ca/downloads/other/PPC_Quick_Ref_Card-Rev1_Oct12_2010.pdf) - An overview of various PowerPC instructions, and their behavior.  
 
 ## Tools
 
 ### Melee Modding and Assembly
 * [HxD](https://mh-nexus.de/en/hxd/) - A free Hex editor. Hex editors in general are useful for looking through memory dumps. 
-* [SpeedCrunch](https://speedcrunch.org/) - A calculator for programmers. It allows for quick conversions between hex, binary, octal, and decimal. 
+* [SpeedCrunch](https://speedcrunch.org/) - A calculator for programmers. It allows for quick conversions and operations between hex, binary, octal, and decimal. 
 * [Ghidra](https://ghidra-sre.org/) - A tool originally created by the NSA - it's used for reverse engineering programs. Particularly useful, is its ability to generate C code from assembly. 
