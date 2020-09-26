@@ -26,7 +26,7 @@ The Slippi project is comprised of a number of different applications, each with
 <br> <i> Frameworks: </i> Electron, React
 
 <b> [Slippi-JS](https://github.com/project-slippi/slippi-js) </b> - A JavaScript library that is used to parse .slp files, and allows for the calculation of game statistics. 
-<br> <i> Languages: </i> JavaScript
+<br> <i> Languages: </i> Typescript
 
 ### The Workflow
 
@@ -36,24 +36,25 @@ The user launches <b>Ishiiruka</b> and selects an .iso of Melee to emulate. Upon
 ## Commonly Asked Questions
 > "Where is the rollback code located?"  
 
-Rollback is accomplished by work done between the [Slippi SSBM Asm](https://github.com/project-slippi/slippi-ssbm-asm/search?p=1&q=rollback&unscoped_q=rollback) code and the [Ishiiruka](https://github.com/project-slippi/Ishiiruka/search?q=rollback&unscoped_q=rollback) code.
+Rollback is accomplished by work done between the [Slippi SSBM ASM](https://github.com/project-slippi/slippi-ssbm-asm/search?p=1&q=rollback&unscoped_q=rollback) code and the [Ishiiruka](https://github.com/project-slippi/Ishiiruka/search?q=rollback&unscoped_q=rollback) code.
 
 > "How is data moved between the game (assembly) and the emulator?"
 
-Via EXI communication. An example of such is demonstrated in [this video](https://github.com/project-slippi/Ishiiruka/search?q=rollback&unscoped_q=rollback) by Fizzi.
+Via [EXI communication](https://github.com/project-slippi/Ishiiruka/blob/slippi/Source/Core/Core/HW/EXI_DeviceSlippi.cpp). An example of such is demonstrated in [this video](https://github.com/project-slippi/Ishiiruka/search?q=rollback&unscoped_q=rollback) by Fizzi.
 
 > "Where is the matchmaking code?"
 
-The source code for the matchmaking server is in a private repository, and is not currently planned to be open sourced.
+The source code for the matchmaking server is in a private repository and is not currently planned to be open sourced.
 
 ## Guides & Resources
 
 ### Melee Modding and Assembly
 * [Fizzi Teaches Basic Assembly and Melee Modding](https://www.youtube.com/watch?v=NOq49h0tkBI) (video) - Recorded by the creator of Slippi, this video teaches some basic assembly and demonstrates EXI communication.
-* [SSBM Data Sheet](https://docs.google.com/spreadsheets/d/1JX2w-r2fuvWuNgGb6D3Cs4wHQKLFegZe2jhbBuIhCG8/preview#gid=12) - A Google Sheet containing information about Melee's memory addresses.
-* [Assembler Tutorial](http://wiibrew.org/wiki/Assembler_Tutorial) - A wii modding specific guide to PPC, and its instructions. 
 * [Intro to Wii Game Modding by InternetExplorer](https://www.youtube.com/watch?v=IOyQhK2OCs0&list=PL6GfYYW69Pa2L8ZuT5lGrJoC8wOWvbIQv) (video) - Recorded by Dan Salvato - A playlist of videos related to modding Wii games. An excellent resource for debugging with Dolphin.
-* [PowerPC Instruction Set Reference Card](http://www.tentech.ca/downloads/other/PPC_Quick_Ref_Card-Rev1_Oct12_2010.pdf) - An overview of various PowerPC instructions, and their behavior.  
+* [Assembler Tutorial](http://wiibrew.org/wiki/Assembler_Tutorial) - A wii modding specific guide to PPC, and its instructions. 
+* [PowerPC Instruction Set](https://www.ibm.com/support/knowledgecenter/en/ssw_aix_71/assembler/idalangref_ins_set.html) - Indepth documentation about PowerPC instructions and their behavior.
+* [PowerPC Instruction Set Reference Card](http://www.tentech.ca/downloads/other/PPC_Quick_Ref_Card-Rev1_Oct12_2010.pdf) - An overview of various PowerPC instructions and their behavior.
+* [SSBM Data Sheet](https://docs.google.com/spreadsheets/d/1JX2w-r2fuvWuNgGb6D3Cs4wHQKLFegZe2jhbBuIhCG8/preview#gid=12) - A Google Sheet containing information about Melee's memory addresses.
 
 ## Tools
 
