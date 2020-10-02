@@ -25,12 +25,12 @@ The Slippi project is comprised of a number of different applications, each with
 <br> <i> Languages: </i> JavaScript
 <br> <i> Frameworks: </i> Electron, React
 
-<b> [Slippi-JS](https://github.com/project-slippi/slippi-js) </b> - A JavaScript library that is used to parse .slp files, and allows for the calculation of game statistics. 
+<b> [slippi-js](https://github.com/project-slippi/slippi-js) </b> - A JavaScript library that is used to parse .slp files, and allows for the calculation of game statistics. 
 <br> <i> Languages: </i> Typescript
 
 ### The Workflow
 
-The user launches <b>Ishiiruka</b> and selects an .iso of Melee to emulate. Upon lauching the emulation of Melee, Ishiiruka injects the modifications made by <b> Slippi SSBM ASM </b>. As the user interacts with the game, information is exchanged between Ishiiruka and the Slippi SSBM ASM code. As a user begins an online match, Ishiiruka starts a log of in-game state reported by Slippi SSBM ASM. This log is ultimately formatted and written to a .slp file, according to the [Slippi replay file spec](https://github.com/project-slippi/slippi-wiki). These files are then viewable from the <b> Slippi Desktop App </b>. From the desktop app, a user may choose to launch the replay, in which case Ishiiruka is launched in a replay mode. A user may also choose to view details or statistics about a previously played match, in order to do so, the desktop app leverages the <b> Slippi-JS </b> library.  
+The user launches <b>Ishiiruka</b> and selects an .iso of Melee to emulate. Upon lauching the emulation of Melee, Ishiiruka injects the modifications made by <b> Slippi SSBM ASM </b>. As the user interacts with the game, information is exchanged between Ishiiruka and the Slippi SSBM ASM code. As a user begins an online match, Ishiiruka starts a log of in-game state reported by Slippi SSBM ASM. This log is ultimately formatted and written to a .slp file, according to the [Slippi replay file spec](https://github.com/project-slippi/slippi-wiki). These files are then viewable from the <b> Slippi Desktop App </b>. From the desktop app, a user may choose to launch the replay, in which case Ishiiruka is launched in a replay mode. A user may also choose to view details or statistics about a previously played match, in order to do so, the desktop app leverages the <b> slippi-js </b> library.  
 
 
 ## Commonly Asked Questions
