@@ -466,11 +466,11 @@ A maximum of 15 items per frame can have their data extracted. This information 
 | 0x1C | Damage Taken | uint16 | Amount of damage an item has taken | 3.0.0
 | 0x1E | Expiration Timer | float | Number of frames remaining before item expires. Can go into the negatives for certain items such as Link arrows | 3.0.0
 | 0x22 | Spawn ID | uint32 | Auto-incremented number whenever an item spawns: 0, 1, 2, 3, etc | 3.0.0
-| 0x23 | Misc #1 | uint8 | Samus missle type | 3.2.0
-| 0x24 | Misc #2 | uint8 | Peach turnip face | 3.2.0
-| 0x25 | Misc #3 | uint8 | Samus/Mewtwo isLaunched boolean for charge shot | 3.2.0
-| 0x27 | Misc #4 | uint8 | Samus/Mewtwo current charged power | 3.2.0
-| 0x28 | Owner | int8 | 0-3 for the player that owns the item. -1 when not owned | 3.6.0
+| 0x26 | Misc #1 | uint8 | Samus missle type | 3.2.0
+| 0x27 | Misc #2 | uint8 | Peach turnip face | 3.2.0
+| 0x28 | Misc #3 | uint8 | Samus/Mewtwo isLaunched boolean for charge shot | 3.2.0
+| 0x29 | Misc #4 | uint8 | Samus/Mewtwo current charged power | 3.2.0
+| 0x2A | Owner | int8 | 0-3 for the player that owns the item. -1 when not owned | 3.6.0
 
 ### Frame Bookend
 The frame bookend is a simple event that can be used to determine that the entire frame's worth of data has been transferred/processed. It is always sent at the very end of the frame's transfer.
