@@ -45,11 +45,11 @@ The server will respond with a connect response formatted as follows:
 }
 ```
 
-"nick" is the nickname of the console. This can be set to most any string and is meant to (mostly) uniquely identify the console when there are several in the room.
-
-"version" is the semantic version of the Slippi running on the server, in string form. Such as "2.2.1".
-
-"cursor" is the index that the server will start sending messages from. *This may not be the cursor you requested*. This is for a good reason, the cursor you asked for may not be valid anymore, for instance.
+| Value | Description |
+| ---- | ----------- |
+| nick | The nickname of the console. This can be set to most any string and is meant to (mostly) uniquely identify the console when there are several in the room. |
+| version | The semantic version of the Slippi running on the server, in string form. Such as "2.2.1". |
+| cursor | The index that the server will start sending messages from. *This may not be the cursor you requested*. This is for a good reason, the cursor you asked for may not be valid anymore, for instance. |
 
 This can commonly happen when you try to rejoin a match that is no longer in progress for instance.
 
@@ -73,11 +73,12 @@ Game events will arrive formatted as such:
 
 Notably, each "event" here is a batch of SLP events concatenated together. In practice, they will be batched together as a frame though this shouldn't be assumed for the purpose of parsing.
 
-"cursor" is the integer cursor of this message.
 
-"next_cursor" is the cursor to expect next. In practice, this is monotonically increasing but clients are advised to respect the "next_cursor" index as this might not always be the case.
-
-"payload" is a base64-encoded binary string of the actual Slippi events.
+| Value | Description |
+| ---- | ----------- |
+| cursor | The integer cursor of this message. |
+| next_cursor | The cursor to expect next. In practice, this is monotonically increasing but clients are advised to respect the "next_cursor" index as this might not always be the case. |
+| payload | A base64-encoded binary string of the actual Slippi events.|
 
 ### Menu Events
 
