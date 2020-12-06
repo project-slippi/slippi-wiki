@@ -44,7 +44,7 @@ Every event is defined by a one byte code followed by a payload. The following t
 | Item Update | 0x3B | One event per frame per item with a maximum of 15 updates per frame. This information can be used for stats, training AIs, or visualization engines to handle items. Items include projectiles like lasers or needles | 3.0.0
 | Frame Bookend | 0x3C | An event that can be used to determine that the entire frame's worth of data has been transferred/processed | 3.0.0
 | Gecko List | 0x3D | An event that lists gecko codes. As it can be very large, the list is broken up into multiple messages | 3.3.0
-
+| Menu Frame | 0x3E | An event that fires once per frame for all "menus" (not in-game) and contains information sufficient to describe the current menu state. Not written to SLP files | 3.X.0
 
 ### Data Types
 Ranges are specified in this document with inclusive notation, i.e. [0, 255] means that 0 and 255 are both valid values and so are any values in between.
@@ -508,6 +508,54 @@ The behavior of this field depends on the version. Found in [Game End](#game-end
 | --- | --- |
 | 0.1.0 | 0 = Unresolved, 3 = resolved
 | 2.0.0 | 1 = TIME!, 2 = GAME!, 7 = No Contest
+
+### Menu Frame
+This event contains the current state of the menu that the game is in. In order to avoid splitting this event into 20 sub-events, all data below is sent for all menu frames, even if it's not contextually relevant.
+
+Importantly, menu frames are not written to SLP file. They appear over the spectator protocol only.
+
+| Offset | Name | Type | Description | Relevant Menu | Added |
+| --- | --- | --- | --- | --- | --- |
+| 0x0 | Command Byte | uint8 | (0x3E) The command byte for the menu frame event | N/A | 3.X.0
+| 0x1 | Major Scene | uint8 | Major scene index | All | 3.X.0
+| 0x2 | Minor Scene | uint8 | Minor scene index | All | 3.X.0
+| 0x3 | P1 CSS Cursor X | float | [-35, 26] 0 when not in use. | CSS | 3.X.0
+| 0x7 | P1 CSS Cursor Y | float | [-22, 25] 0 when not in use. | CSS | 3.X.0
+| 0xB | P2 CSS Cursor X | float | [-35, 26] 0 when not in use. | CSS | 3.X.0
+| 0xF | P2 CSS Cursor Y | float | [-22, 25] 0 when not in use. | CSS | 3.X.0
+| 0x13 | P3 CSS Cursor X | float | [-35, 26] 0 when not in use. | CSS | 3.X.0
+| 0x17 | P3 CSS Cursor Y | float | [-22, 25] 0 when not in use. | CSS | 3.X.0
+| 0x1B | P4 CSS Cursor X | float | [-35, 26] 0 when not in use. | CSS | 3.X.0
+| 0x1F | P4 CSS Cursor Y | float | [-22, 25] 0 when not in use. | CSS | 3.X.0
+| 0x23 | Ready To Start | uint8 | [0, 10] ranges as the "Ready to Start" banner swoops in during the VS menu. 0 means fully visible (ready to play). 10 means fully invisible (not ready to play) | CSS | 3.X.0
+| 0x24 | Stage Selected | uint8 | Stage ID for the stage that is currently hovered over in the SSS. | SSS | 3.X.0
+| 0x25 | P1 Controller Port Status | uint8 | 0 means `Plugged In`, 1 means `CPU`, 3 means `Unplugged`. | CSS | 3.X.0
+| 0x26 | P2 Controller Port Status | uint8 | 0 means `Plugged In`, 1 means `CPU`, 3 means `Unplugged`. | CSS | 3.X.0
+| 0x27 | P3 Controller Port Status | uint8 | 0 means `Plugged In`, 1 means `CPU`, 3 means `Unplugged`. | CSS | 3.X.0
+| 0x28 | P4 Controller Port Status | uint8 | 0 means `Plugged In`, 1 means `CPU`, 3 means `Unplugged`. | CSS | 3.X.0
+| 0x29 | P1 Character Selected | uint8 | The character ID currently selected (the one that shows up in the portrait) | CSS | 3.X.0
+| 0x2A | P2 Character Selected | uint8 | The character ID currently selected (the one that shows up in the portrait) | CSS | 3.X.0
+| 0x2B | P3 Character Selected | uint8 | The character ID currently selected (the one that shows up in the portrait) | CSS | 3.X.0
+| 0x2C | P4 Character Selected | uint8 | The character ID currently selected (the one that shows up in the portrait) | CSS | 3.X.0
+| 0x2D | P1 Coin Status | uint8 | 0 means `No Coin`, 1 means `Coin in Hand`, 2 means `Coin Down`, 3 means `Not Plugged In` | CSS | 3.X.0
+| 0x2E | P1 Coin Status | uint8 | 0 means `No Coin`, 1 means `Coin in Hand`, 2 means `Coin Down`, 3 means `Not Plugged In` | CSS | 3.X.0
+| 0x2F | P1 Coin Status | uint8 | 0 means `No Coin`, 1 means `Coin in Hand`, 2 means `Coin Down`, 3 means `Not Plugged In` | CSS | 3.X.0
+| 0x30 | P1 Coin Status | uint8 | 0 means `No Coin`, 1 means `Coin in Hand`, 2 means `Coin Down`, 3 means `Not Plugged In` | CSS | 3.X.0
+| 0x31 | Stage Select Cursor X | float | Stage select cursor x coordinate. [-27, 19] | SSS | 3.X.0
+| 0x35 | Stage Select Cursor Y | float | Stage select cursor y coordinate. [-27, 19] | SSS | 3.X.0
+| 0x39 | Frame Count | uint32 | Monotonically increasing frame number. Resets to 0 at most scene transitions. | All | 3.X.0
+| 0x3D | Sub-menu ID | uint8 | ID of sub-menu (`VS Mode`, `Name Entry`, `Language Select`, etc...) | All | 3.X.0
+| 0x3E | Menu Selection Index | uint8 | Index of the currently selected menu item. | Main Menus | 3.X.0
+| 0x3F | Online Costume Index | uint8 | Index of the currently selected online costume. | Online CSS | 3.X.0
+| 0x40 | Is Nametag Entry | uint8 | 5 means `True` | Online CSS | 3.X.0
+| 0x41 | P1 CPU Level | uint8 | [1, 9] CPU level set. | CSS | 3.X.0
+| 0x42 | P2 CPU Level | uint8 | [1, 9] CPU level set. | CSS | 3.X.0
+| 0x43 | P3 CPU Level | uint8 | [1, 9] CPU level set. | CSS | 3.X.0
+| 0x44 | P4 CPU Level | uint8 | [1, 9] CPU level set. | CSS | 3.X.0
+| 0x45 | P1 Is Holding CPU Slider | bool | 0 means `False`, 1 means `True` | CSS | 3.X.0
+| 0x46 | P2 Is Holding CPU Slider | bool | 0 means `False`, 1 means `True` | CSS | 3.X.0
+| 0x47 | P3 Is Holding CPU Slider | bool | 0 means `False`, 1 means `True` | CSS | 3.X.0
+| 0x48 | P4 Is Holding CPU Slider | bool | 0 means `False`, 1 means `True` | CSS | 3.X.0
 
 # The `metadata` Element
 The metadata element contains any miscellaneous data relevant to the game but not directly provided by Melee. Unlike all the other data defined in this doc, which was basically stored as a binary stream, the data in the metadata element is pure UBJSON.
