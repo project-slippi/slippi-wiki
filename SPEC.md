@@ -378,7 +378,7 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x3d | Attack-based x Speed  | float | Negative means left, Positive means right | 3.5.0
 | 0x41 | Attack-based y Speed  | float | Negative means down, Positive means up | 3.5.0
 | 0x45 | Self-induced Ground x Speed  | float | Negative means left, Positive means right | 3.5.0
-| 0x46 | Hitlag frames remaining  | float | 0 means "not in hitlag" | 3.8.0
+| 0x49 | Hitlag frames remaining  | float | 0 means "not in hitlag" | 3.8.0
 
 #### State Bit Flags 1
 Found in [Post-Frame Update](#post-frame-update).
