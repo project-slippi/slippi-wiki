@@ -537,10 +537,10 @@ Importantly, menu frames are not written to SLP file. They appear over the spect
 | 0x2A | P2 Character Selected | uint8 | The character ID currently selected (the one that shows up in the portrait) | CSS | 3.X.0
 | 0x2B | P3 Character Selected | uint8 | The character ID currently selected (the one that shows up in the portrait) | CSS | 3.X.0
 | 0x2C | P4 Character Selected | uint8 | The character ID currently selected (the one that shows up in the portrait) | CSS | 3.X.0
-| 0x2D | P1 Coin Status | uint8 | 0 means `No Coin`, 1 means `Coin in Hand`, 2 means `Coin Down`, 3 means `Not Plugged In` | CSS | 3.X.0
-| 0x2E | P1 Coin Status | uint8 | 0 means `No Coin`, 1 means `Coin in Hand`, 2 means `Coin Down`, 3 means `Not Plugged In` | CSS | 3.X.0
-| 0x2F | P1 Coin Status | uint8 | 0 means `No Coin`, 1 means `Coin in Hand`, 2 means `Coin Down`, 3 means `Not Plugged In` | CSS | 3.X.0
-| 0x30 | P1 Coin Status | uint8 | 0 means `No Coin`, 1 means `Coin in Hand`, 2 means `Coin Down`, 3 means `Not Plugged In` | CSS | 3.X.0
+| 0x2D | P1 Puck Status | uint8 | 0 means `No Puck`, 1 means `Puck in Hand`, 2 means `Puck Down`, 3 means `Not Plugged In` | CSS | 3.X.0
+| 0x2E | P1 Puck Status | uint8 | 0 means `No Puck`, 1 means `Puck in Hand`, 2 means `Puck Down`, 3 means `Not Plugged In` | CSS | 3.X.0
+| 0x2F | P1 Puck Status | uint8 | 0 means `No Puck`, 1 means `Puck in Hand`, 2 means `Puck Down`, 3 means `Not Plugged In` | CSS | 3.X.0
+| 0x30 | P1 Puck Status | uint8 | 0 means `No Puck`, 1 means `Puck in Hand`, 2 means `Puck Down`, 3 means `Not Plugged In` | CSS | 3.X.0
 | 0x31 | Stage Select Cursor X | float | Stage select cursor x coordinate. [-27, 19] | SSS | 3.X.0
 | 0x35 | Stage Select Cursor Y | float | Stage select cursor y coordinate. [-27, 19] | SSS | 3.X.0
 | 0x39 | Frame Count | uint32 | Monotonically increasing frame number. Resets to 0 at most scene transitions. | All | 3.X.0
