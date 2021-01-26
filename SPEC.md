@@ -117,7 +117,7 @@ Offsets are **indexed from the [Game Start](#game-start) command byte** describe
 | 0x6 | Game Bitfield 2 | uint8 | See the table [Game Bitfield 2](#game-bitfield-2)
 | 0x8 | Game Bitfield 3 | uint8 | See the table [Game Bitfield 3](#game-bitfield-3)
 | 0xD | Is Teams | bool | Value is 1 if teams game, 0 otherwise
-| 0x10 | Item Spawn Behavior | int8 | Indicates how frequently items spawn. -1 = off, 0 = very low, 1 = low, 2 = medium, 3 = high, 4 = very high
+| 0x10 | Item Spawn Behavior | int8 | Indicates how frequently items spawn. -1 = off, 0 = very low, 1 = low, 2 = medium, 3 = high, 4 = very high, 5-8 = even higher
 | 0x11 | Self Destruct Score Value | int8 | Indicates how an SD should be interpreted for scoring. Can be -2, -1, or 0 if set by the game
 | 0x13 | Stage | uint16 | [Stage ID](#melee-ids)
 | 0x15 | Game Timer | uint32 | The number of seconds for the timer. Will be specified in this field regardless of game mode
@@ -238,10 +238,10 @@ Found in [Game Info Block](#game-info-block).
 
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
-| 1 | 0x01 | Unknown
-| 2 | 0x02 | Unknown
-| 3 | 0x04 | Unknown
-| 4 | 0x08 | Unknown
+| 1 | 0x01 | Capsule
+| 2 | 0x02 | Box
+| 3 | 0x04 | Barrel
+| 4 | 0x08 | Egg (not all stages)
 | 5 | 0x10 | Party Ball
 | 6 | 0x20 | Barrel Cannon
 | 7 | 0x40 | Bob-omb
