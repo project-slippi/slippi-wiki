@@ -107,8 +107,8 @@ This is data that will be transferred as the game is starting. It includes all t
 | 0x1A2 | Frozen PS | bool | Value is 1 if frozen Pokémon Stadium is enabled, 0 otherwise | 2.0.0
 | 0x1A3 | Minor Scene | u8 | Minor scene number. Mostly useless atm, should always be 0x2 | 3.7.0
 | 0x1A4 | Major Scene | u8 | Major scene number. 0x2 when the game is played from VS mode, 0x8 when online game (has rollbacks) | 3.7.0
-| 0x1A5 + 0x1F*i* | Display Name | Shift JIS string | Display names used by the players if using Slippi Online. *i* is 0-3 depending on the character port. [Shift JIS](https://en.wikipedia.org/wiki/Shift_JIS) encoded, characters can be mixed half width (1 byte) and full width (2 bytes). Max 15 characters + null terminator | 3.9.0
-| 0x221 + 0xA*i* | Connect Code | Shift JIS string | Connect codes used by the players in using Slippi Online. *i* is 0-3 depending on the character port. The `#` is full width (`0x8194`). All other characters are half width (1 byte). Max 7 1 byte characters + 2 byte `#` + null terminator | 3.9.0
+| 0x1A5 + 0x1F*i* | Display Name | Shift JIS string | Display names used by the players if using Slippi Online. *i* is 0-3 depending on the character port. [Shift JIS](https://en.wikipedia.org/wiki/Shift_JIS) encoded, characters can be mixed half width (1 byte) and full width (2 bytes). Max 15 characters + null terminator | 3.8.0
+| 0x221 + 0xA*i* | Connect Code | Shift JIS string | Connect codes used by the players in using Slippi Online. *i* is 0-3 depending on the character port. The `#` is full width (`0x8194`). All other characters are half width (1 byte). Max 7 1 byte characters + 2 byte `#` + null terminator | 3.8.0
 
 #### Game Info Block
 Offsets are **indexed from the [Game Start](#game-start) command byte** described above, they are not indexed from the start of the Game Info Block.
