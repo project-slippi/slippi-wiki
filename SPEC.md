@@ -168,14 +168,14 @@ Found in [Game Info Block](#game-info-block).
 
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
-| 1 | 0x01 | Unknown
+| 1 | 0x01 | Timer UI should be shown and still count during pause
 | 2 | 0x02 | Standard play HUD should be hidden during pause
 | 3 | 0x04 | LRAStart UI should be shown during pause
 | 4 | 0x08 | Pause is disabled
-| 5 | 0x10 | Unknown
+| 5 | 0x10 | ZRetry UI should be shown during pause
 | 6 | 0x20 | Unknown
-| 7 | 0x40 | Analog stick should be shown in pause UI
-| 8 | 0x80 | Unknown
+| 7 | 0x40 | Analog Stick UI should be shown during pause
+| 8 | 0x80 | Score Display UI should be shown when not paused
 
 ##### Item Spawn Bitfield 1
 Found in [Game Info Block](#game-info-block).
