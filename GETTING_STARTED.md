@@ -55,10 +55,12 @@ The source code for the matchmaking server is in a private repository and is not
 * [PowerPC Instruction Set](https://www.ibm.com/support/knowledgecenter/en/ssw_aix_71/assembler/idalangref_ins_set.html) - Indepth documentation about PowerPC instructions and their behavior.
 * [PowerPC Instruction Set Reference Card](http://www.tentech.ca/downloads/other/PPC_Quick_Ref_Card-Rev1_Oct12_2010.pdf) - An overview of various PowerPC instructions and their behavior.
 * [SSBM Data Sheet](https://docs.google.com/spreadsheets/d/1JX2w-r2fuvWuNgGb6D3Cs4wHQKLFegZe2jhbBuIhCG8/preview#gid=12) - A Google Sheet containing information about Melee's memory addresses.
+* [MKWii's Go From Noob to Veteran ASM Coder Guide Repo](https://mkwii.com/showthread.php?tid=1114) - A bunch of useful guides to learning ASM and related concepts, not necessarily PPC or Melee specific.
 
 ## Tools
 
 ### Melee Modding and Assembly
+* [VSCode PPC ASM Extension](https://marketplace.visualstudio.com/items?itemName=OGoodness.powerpc-syntax) - A useful extension for syntax highlighting in VSCode
 * [HxD](https://mh-nexus.de/en/hxd/) - A free Hex editor. Hex editors in general are useful for looking through memory dumps. 
 * [SpeedCrunch](https://speedcrunch.org/) - A calculator for programmers. It allows for quick conversions and operations between hex, binary, octal, and decimal. 
 * [Ghidra](https://ghidra-sre.org/) - A tool originally created by the NSA - it's used for reverse engineering programs. Particularly useful, is its ability to generate C code from assembly. 
