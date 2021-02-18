@@ -155,13 +155,13 @@ Found in [Game Info Block](#game-info-block).
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
 | 1 | 0x01 | Friendly fire is on
-| 2 | 0x02 | Unknown
-| 3 | 0x04 | Unknown
-| 4 | 0x08 | Unknown
-| 5 | 0x10 | Unknown
-| 6 | 0x20 | Unknown
-| 7 | 0x40 | Unknown
-| 8 | 0x80 | Unknown
+| 2 | 0x02 | Break the Targets / Title Screen Demo
+| 3 | 0x04 | Classic Mode / Adventure Mode
+| 4 | 0x08 | Home Run Contest / Event Match
+| 5 | 0x10 | All-Star in-game / waiting area
+| 6 | 0x20 | All-Star in-game / waiting area
+| 7 | 0x40 | All-Star in-game
+| 8 | 0x80 | All-Star in-game
 
 ##### Game Bitfield 3
 Found in [Game Info Block](#game-info-block).
@@ -241,7 +241,7 @@ Found in [Game Info Block](#game-info-block).
 | 1 | 0x01 | Capsule
 | 2 | 0x02 | Box
 | 3 | 0x04 | Barrel
-| 4 | 0x08 | Egg (not all stages)
+| 4 | 0x08 | Egg (Only Yoshi's Story and Yoshi's Island)
 | 5 | 0x10 | Party Ball
 | 6 | 0x20 | Barrel Cannon
 | 7 | 0x40 | Bob-omb
