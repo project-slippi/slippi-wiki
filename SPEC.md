@@ -115,7 +115,8 @@ Offsets are **indexed from the [Game Start](#game-start) command byte** describe
 | --- | --- | --- | --- |
 | 0x5 | Game Bitfield 1 | uint8 | See the table [Game Bitfield 1](#game-bitfield-1)
 | 0x6 | Game Bitfield 2 | uint8 | See the table [Game Bitfield 2](#game-bitfield-2)
-| 0x8 | Game Bitfield 3 | uint8 | See the table [Game Bitfield 3](#game-bitfield-3)
+| 0x7 | Game Bitfield 3 | uint8 | See the table [Game Bitfield 3](#game-bitfield-3)
+| 0x8 | Game Bitfield 4 | uint8 | See the table [Game Bitfield 4](#game-bitfield-4)
 | 0xD | Is Teams | bool | Value is 1 if teams game, 0 otherwise
 | 0x10 | Item Spawn Behavior | int8 | Indicates how frequently items spawn. -1 = off, 0 = very low, 1 = low, 2 = medium, 3 = high, 4 = very high, 5-8 = even higher
 | 0x11 | Self Destruct Score Value | int8 | Indicates how an SD should be interpreted for scoring. Can be -2, -1, or 0 if set by the game
@@ -164,6 +165,20 @@ Found in [Game Info Block](#game-info-block).
 | 8 | 0x80 | All-Star in-game
 
 ##### Game Bitfield 3
+Found in [Game Info Block](#game-info-block).
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Unknown
+| 2 | 0x02 | Unknown
+| 3 | 0x04 | Unknown
+| 4 | 0x08 | Unknown
+| 5 | 0x10 | Single-button Mode
+| 6 | 0x20 | Unknown
+| 7 | 0x40 | Unknown
+| 8 | 0x80 | Unknown
+
+##### Game Bitfield 4
 Found in [Game Info Block](#game-info-block).
 
 | Bit Number | Bit Value | Description |
