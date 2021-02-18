@@ -102,11 +102,13 @@ This is data that will be transferred as the game is starting. It includes all t
 | 0x13D | Random Seed | uint32 | The random seed before the game start | 0.1.0
 | 0x141 + 0x8*i* | Dashback Fix | uint32 | Controller fix dashback option (0 = off, 1 = UCF, 2 = Dween). *i* is 0-3 depending on the character port. | 1.0.0
 | 0x145 + 0x8*i* | Shield Drop Fix | uint32 | Controller fix shield drop option (0 = off, 1 = UCF, 2 = Dween). *i* is 0-3 depending on the character port. | 1.0.0
-| 0x161 + 0x10*i* | Nametag | uint16[8] | Nametags used by the players. *i* is 0-3 depending on the character port. Nametags are [Shift-JIS](https://en.wikipedia.org/wiki/Shift_JIS) encoded. The English characters are full width characters and [can be converted](https://github.com/project-slippi/slp-parser-js/blob/master/src/utils/fullwidth.ts) to normal ASCII/half width characters | 1.3.0
+| 0x161 + 0x10*i* | Nametag | Shift JIS char16[8] | Nametags used by the players. *i* is 0-3 depending on the character port. Nametags are [Shift JIS](https://en.wikipedia.org/wiki/Shift_JIS) encoded. The English characters are full width characters and [can be converted](https://github.com/project-slippi/slp-parser-js/blob/master/src/utils/fullwidth.ts) to normal ASCII/half width characters | 1.3.0
 | 0x1A1 | PAL | bool | Value is 1 if PAL is enabled, 0 otherwise | 1.5.0
 | 0x1A2 | Frozen PS | bool | Value is 1 if frozen Pokémon Stadium is enabled, 0 otherwise | 2.0.0
 | 0x1A3 | Minor Scene | u8 | Minor scene number. Mostly useless atm, should always be 0x2 | 3.7.0
 | 0x1A4 | Major Scene | u8 | Major scene number. 0x2 when the game is played from VS mode, 0x8 when online game (has rollbacks) | 3.7.0
+| 0x1A5 + 0x1F*i* | Display Name | Shift JIS string | Display names used by the players if using Slippi Online. *i* is 0-3 depending on the character port. [Shift JIS](https://en.wikipedia.org/wiki/Shift_JIS) encoded, characters can be mixed half width (1 byte) and full width (2 bytes). Max 15 characters + null terminator | 3.9.0
+| 0x221 + 0xA*i* | Connect Code | Shift JIS string | Connect codes used by the players in using Slippi Online. *i* is 0-3 depending on the character port. The `#` is full width (`0x8194`). All other characters are half width (1 byte). Max 7 1 byte characters + 2 byte `#` + null terminator | 3.9.0
 
 #### Game Info Block
 Offsets are **indexed from the [Game Start](#game-start) command byte** described above, they are not indexed from the start of the Game Info Block.
