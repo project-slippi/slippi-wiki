@@ -270,13 +270,13 @@ Found in [Game Info Block](#game-info-block).
 
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
-| 1 | 0x01 | Unknown
-| 2 | 0x02 | Unknown
-| 3 | 0x04 | Unknown
-| 4 | 0x08 | Unknown
-| 5 | 0x10 | Unknown
-| 6 | 0x20 | Unknown
-| 7 | 0x40 | Unknown
+| 1 | 0x01 | Stamina mode
+| 2 | 0x02 | Silent character
+| 3 | 0x04 | Low gravity
+| 4 | 0x08 | Invisible
+| 5 | 0x10 | Black stock icon
+| 6 | 0x20 | Metal
+| 7 | 0x40 | Start the game on the warp-in platform
 | 8 | 0x80 | Rumble enabled
 
 ### Frame Start
