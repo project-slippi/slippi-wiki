@@ -40,7 +40,7 @@ Rollback is accomplished by work done between the [Slippi SSBM ASM](https://gith
 
 > "How is data moved between the game (assembly) and the emulator?"
 
-Via [EXI communication](https://github.com/project-slippi/Ishiiruka/blob/slippi/Source/Core/Core/HW/EXI_DeviceSlippi.cpp). An example of such is demonstrated in [this video](https://github.com/project-slippi/Ishiiruka/search?q=rollback&unscoped_q=rollback) by Fizzi.
+Via [EXI communication](https://github.com/project-slippi/Ishiiruka/blob/slippi/Source/Core/Core/HW/EXI_DeviceSlippi.cpp). An example of such is demonstrated in [this video](https://www.youtube.com/watch?v=NOq49h0tkBI) by Fizzi.
 
 > "Where is the matchmaking code?"
 
