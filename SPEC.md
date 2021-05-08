@@ -179,7 +179,7 @@ Found in [Game Info Block](#game-info-block).
 | 5 | 0x10 | Single-button Mode
 | 6 | 0x20 | Unknown
 | 7 | 0x40 | Unknown
-| 8 | 0x80 | Pause Mode. 0x8E = off, 0x86 = on
+| 8 | 0x80 | Pause Mode
 
 ##### Game Bitfield 4
 Found in [Game Info Block](#game-info-block).
