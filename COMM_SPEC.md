@@ -27,3 +27,14 @@ This document will outline the details of the Slippi Dolphin communication file 
 | gameStation | string | Typically the name of console the replay was created on, but can be used with any string |
 
 Additional data in the JSON will not interfere with playback as long as the JSON continues to be valid.
+
+## Exampe
+```
+{
+	"mode":"normal",
+	"rollbackDisplayMethod":"off",
+	"shouldResync":false,
+	"replay": "C:\\Path\\Replay.slp",
+	"commandId": "1"
+}
+```
