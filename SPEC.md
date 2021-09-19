@@ -35,16 +35,15 @@ Every event is defined by a one byte code followed by a payload. The following t
 
 | Event Type | Event Code | Description | Added |
 | --- | :---: | --- | --- |
-| Event Payloads | 0x35 | This event will be the very first event in the byte stream. It enumerates all possible events and their respective payload sizes that may be encountered in the byte stream | 0.1.0
-| Game Start | 0x36 | Contains any information relevant to how the game is set up. Also includes the version of the extraction code | 0.1.0
-| Pre-Frame Update | 0x37 | One event per frame per character (Ice Climbers are 2 characters). Contains information required to **reconstruct a replay**. Information is collected right before controller inputs are used to figure out the character's next action | 0.1.0
-| Post-Frame Update | 0x38 | One event per frame per character (Ice Climbers are 2 characters). Contains information for **making decisions about game states**, such as computing stats. Information is collected at the end of the Collision detection which is the last consideration of the game engine | 0.1.0
-| Game End | 0x39 | Indicates the end of the game | 0.1.0
-| Frame Start | 0x3A | This event includes the RNG seed and frame number at the start of a frame's processing | 2.2.0
-| Item Update | 0x3B | One event per frame per item with a maximum of 15 updates per frame. This information can be used for stats, training AIs, or visualization engines to handle items. Items include projectiles like lasers or needles | 3.0.0
-| Frame Bookend | 0x3C | An event that can be used to determine that the entire frame's worth of data has been transferred/processed | 3.0.0
+| [Event Payloads](#event-payloads) | 0x35 | This event will be the very first event in the byte stream. It enumerates all possible events and their respective payload sizes that may be encountered in the byte stream | 0.1.0
+| [Game Start](#game-start) | 0x36 | Contains any information relevant to how the game is set up. Also includes the version of the extraction code | 0.1.0
+| [Pre-Frame Update](#pre-frame-update) | 0x37 | One event per frame per character (Ice Climbers are 2 characters). Contains information required to **reconstruct a replay**. Information is collected right before controller inputs are used to figure out the character's next action | 0.1.0
+| [Post-Frame Update](#post-frame-update) | 0x38 | One event per frame per character (Ice Climbers are 2 characters). Contains information for **making decisions about game states**, such as computing stats. Information is collected at the end of the Collision detection which is the last consideration of the game engine | 0.1.0
+| [Game End](#game-end) | 0x39 | Indicates the end of the game | 0.1.0
+| [Frame Start](#frame-start) | 0x3A | This event includes the RNG seed and frame number at the start of a frame's processing | 2.2.0
+| [Item Update](#item-update) | 0x3B | One event per frame per item with a maximum of 15 updates per frame. This information can be used for stats, training AIs, or visualization engines to handle items. Items include projectiles like lasers or needles | 3.0.0
+| [Frame Bookend](#frame-bookend) | 0x3C | An event that can be used to determine that the entire frame's worth of data has been transferred/processed | 3.0.0
 | Gecko List | 0x3D | An event that lists gecko codes. As it can be very large, the list is broken up into multiple messages | 3.3.0
-
 
 ### Data Types
 Ranges are specified in this document with inclusive notation, i.e. [0, 255] means that 0 and 255 are both valid values and so are any values in between.
