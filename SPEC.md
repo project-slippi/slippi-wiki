@@ -110,38 +110,38 @@ This is data that will be transferred as the game is starting. It includes all t
 | 0x221 + 0xA*i* | Connect Code | Shift JIS string | Connect codes used by the players in using Slippi Online. *i* is 0-3 depending on the character port. The `#` is full width (`0x8194`). All other characters are half width (1 byte). Max 7 1 byte characters + 2 byte `#` + null terminator | 3.9.0
 
 #### Game Info Block
-Offsets are **indexed from the [Game Start](#game-start) command byte** described above, they are not indexed from the start of the Game Info Block.
+Offsets are **indexed from the start of the Game Info Block**. To get the offset of from the [Game Start Block](#game-start), add `0x5` to the offset.
 
 | Offset | Name | Type | Description |
 | --- | --- | --- | --- |
-| 0x5 | Game Bitfield 1 | uint8 | See the table [Game Bitfield 1](#game-bitfield-1)
-| 0x6 | Game Bitfield 2 | uint8 | See the table [Game Bitfield 2](#game-bitfield-2)
-| 0x7 | Game Bitfield 3 | uint8 | See the table [Game Bitfield 3](#game-bitfield-3)
-| 0x8 | Game Bitfield 4 | uint8 | See the table [Game Bitfield 4](#game-bitfield-4)
-| 0xB | Bomb Rain | uint8 | Value is 0 if bomb rain is disabled. Any other value will cause bombs to start dropping after 20 seconds have elapsed.
-| 0xD | Is Teams | bool | Value is non-zero if teams game, 0 otherwise
-| 0x10 | Item Spawn Behavior | int8 | Indicates how frequently items spawn. -1 = off, 0 = very low, 1 = low, 2 = medium, 3 = high, 4 = very high, 5-8 = even higher
-| 0x11 | Self Destruct Score Value | int8 | Indicates how an SD should be interpreted for scoring. Can be -2, -1, or 0 if set by the game
-| 0x13 | Stage | uint16 | [Stage ID](#melee-ids)
-| 0x15 | Game Timer | uint32 | The number of seconds for the timer. Will be specified in this field regardless of game mode
-| 0x28 | Item Spawn Bitfield 1 | uint8 | See the table [Item Spawn Bitfield 1](#item-spawn-bitfield-1)
-| 0x29 | Item Spawn Bitfield 2 | uint8 | See the table [Item Spawn Bitfield 2](#item-spawn-bitfield-2)
-| 0x2A | Item Spawn Bitfield 3 | uint8 | See the table [Item Spawn Bitfield 3](#item-spawn-bitfield-3)
-| 0x2B | Item Spawn Bitfield 4 | uint8 | See the table [Item Spawn Bitfield 4](#item-spawn-bitfield-4)
-| 0x2C | Item Spawn Bitfield 5 | uint8 | See the table [Item Spawn Bitfield 5](#item-spawn-bitfield-5)
-| 0x35 | Damage Ratio | float | Indicates the Damage Ratio
-| 0x65 + 0x24*i* | External Character ID | uint8 | The player's [character ID](#melee-ids). *i* is 0-3 depending on the character port. Port 1 is *i* = 0, Port 2 is *i* = 1, and so on. There are 6 characters worth of data present in the block, but only 4 are supported by Slippi.
-| 0x66 + 0x24*i* | Player Type | uint8 | 0 = human, 1 = CPU, 2 = demo, 3 = empty
-| 0x67 + 0x24*i* | Stock Start Count | uint8 | Stocks this player starts with
-| 0x68 + 0x24*i* | Costume Index | uint8 | Indicates which costume index the player used. Does not map to an actual color, e.g. blue Young Link and blue Falcon have different values
-| 0x6C + 0x24*i* | Team Shade | uint8 | Indicates coloration changes for multiples of the same character on the same team. 0 = normal, 1 = light, 2 = dark
-| 0x6D + 0x24*i* | Handicap | uint8 | The handicap set on the player. Will affect offense/defense ratios later in the player record
-| 0x6E + 0x24*i* | Team ID | uint8 | Value only relevant if `is teams` is true. 0 = red, 1 = blue, 2 = green
-| 0x71 + 0x24*i* | Player Bitfield | uint8 | See the table [Player Bitfield](#player-bitfield)
-| 0x74 + 0x24*i* | CPU Level | uint8 | Indicates what the CPU level is. Still specified on human players
-| 0x79 + 0x24*i* | Offense Ratio | float | Indicates a knockback multiplier when this player hits another
-| 0x7D + 0x24*i* | Defense Ratio | float | Indicates a knockback multiplier when this player is hit
-| 0x81 + 0x24*i* | Model Scale | float | Indicates a multiplier on the size scaling of the character's model
+| 0x0 | Game Bitfield 1 | uint8 | See the table [Game Bitfield 1](#game-bitfield-1)
+| 0x1 | Game Bitfield 2 | uint8 | See the table [Game Bitfield 2](#game-bitfield-2)
+| 0x2 | Game Bitfield 3 | uint8 | See the table [Game Bitfield 3](#game-bitfield-3)
+| 0x3 | Game Bitfield 4 | uint8 | See the table [Game Bitfield 4](#game-bitfield-4)
+| 0x6 | Bomb Rain | uint8 | Value is 0 if bomb rain is disabled. Any other value will cause bombs to start dropping after 20 seconds have elapsed.
+| 0x8 | Is Teams | bool | Value is non-zero if teams game, 0 otherwise
+| 0xB | Item Spawn Behavior | int8 | Indicates how frequently items spawn. -1 = off, 0 = very low, 1 = low, 2 = medium, 3 = high, 4 = very high, 5-8 = even higher
+| 0xC | Self Destruct Score Value | int8 | Indicates how an SD should be interpreted for scoring. Can be -2, -1, or 0 if set by the game
+| 0xE | Stage | uint16 | [Stage ID](#melee-ids)
+| 0x10 | Game Timer | uint32 | The number of seconds for the timer. Will be specified in this field regardless of game mode
+| 0x23 | Item Spawn Bitfield 1 | uint8 | See the table [Item Spawn Bitfield 1](#item-spawn-bitfield-1)
+| 0x24 | Item Spawn Bitfield 2 | uint8 | See the table [Item Spawn Bitfield 2](#item-spawn-bitfield-2)
+| 0x25 | Item Spawn Bitfield 3 | uint8 | See the table [Item Spawn Bitfield 3](#item-spawn-bitfield-3)
+| 0x26 | Item Spawn Bitfield 4 | uint8 | See the table [Item Spawn Bitfield 4](#item-spawn-bitfield-4)
+| 0x27 | Item Spawn Bitfield 5 | uint8 | See the table [Item Spawn Bitfield 5](#item-spawn-bitfield-5)
+| 0x30 | Damage Ratio | float | Indicates the Damage Ratio
+| 0x60 + 0x24*i* | External Character ID | uint8 | The player's [character ID](#melee-ids). *i* is 0-3 depending on the character port. Port 1 is *i* = 0, Port 2 is *i* = 1, and so on. There are 6 characters worth of data present in the block, but only 4 are supported by Slippi.
+| 0x61 + 0x24*i* | Player Type | uint8 | 0 = human, 1 = CPU, 2 = demo, 3 = empty
+| 0x62 + 0x24*i* | Stock Start Count | uint8 | Stocks this player starts with
+| 0x63 + 0x24*i* | Costume Index | uint8 | Indicates which costume index the player used. Does not map to an actual color, e.g. blue Young Link and blue Falcon have different values
+| 0x67 + 0x24*i* | Team Shade | uint8 | Indicates coloration changes for multiples of the same character on the same team. 0 = normal, 1 = light, 2 = dark
+| 0x68 + 0x24*i* | Handicap | uint8 | The handicap set on the player. Will affect offense/defense ratios later in the player record
+| 0x69 + 0x24*i* | Team ID | uint8 | Value only relevant if `is teams` is true. 0 = red, 1 = blue, 2 = green
+| 0x6C + 0x24*i* | Player Bitfield | uint8 | See the table [Player Bitfield](#player-bitfield)
+| 0x6F + 0x24*i* | CPU Level | uint8 | Indicates what the CPU level is. Still specified on human players
+| 0x78 + 0x24*i* | Offense Ratio | float | Indicates a knockback multiplier when this player hits another
+| 0x7C + 0x24*i* | Defense Ratio | float | Indicates a knockback multiplier when this player is hit
+| 0x80 + 0x24*i* | Model Scale | float | Indicates a multiplier on the size scaling of the character's model
 
 ##### Game Bitfield 1
 Found in [Game Info Block](#game-info-block).
