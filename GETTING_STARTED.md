@@ -21,12 +21,15 @@ The Slippi project is comprised of a number of different applications, each with
 <b> [Slippi SSBM ASM](https://github.com/project-slippi/slippi-ssbm-asm) </b> - A series of ASM mods that are applied to Melee in order make Slippi work.
 <br> <i> Languages: </i> PPC Assembly
 
-<b> [Slippi Desktop App](https://github.com/project-slippi/slippi-desktop-app) </b> - A desktop application that allows users to view statstics about previous matches, and launch replays.
+<b> [Slippi Launcher](https://github.com/project-slippi/slippi-launcher) </b> - A desktop application that acts as a hub for Slippi. It handles downloading/updating Dolphin, playing back replays, watching Wii mirrors, viewing replay stats, and more.
 <br> <i> Languages: </i> JavaScript
 <br> <i> Frameworks: </i> Electron, React
 
 <b> [slippi-js](https://github.com/project-slippi/slippi-js) </b> - A JavaScript library that is used to parse .slp files, and allows for the calculation of game statistics. 
 <br> <i> Languages: </i> Typescript
+
+<b> [Slippi Nintendont](https://github.com/project-slippi/Nintendont) </b> - A modified version of the popular Wii Homebrew app that supports Slippi Recording/Mirroring. It also has toggles for many common codes used for Melee tournaments.
+<br> <i> Languages: </i> C
 
 ### The Workflow
 
