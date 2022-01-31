@@ -297,6 +297,7 @@ Frame start is an event added to transfer RNG seed at the very beginning of a fr
 | 0x0 | Command Byte | uint8 | (0x3A) The command byte for the frame start event | 2.2.0
 | 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 2.2.0
 | 0x5 | Random Seed | uint32 | The random seed at the start of the frame| 2.2.0
+| 0x9 | Scene Frame Counter | uint32 | The scene frame counter. Starts at 0 when the game starts. Continnues to count frames even if the game is paused. Can be used to determine if a pause happened and how many frames it lasted by looking for jumps in this value from frame to frame | 3.10.0
 
 ### Pre-Frame Update
 This event will occur exactly once per frame per character (Ice Climbers are 2 characters). Contains information required to **reconstruct a replay**. Information is collected right before controller inputs are used to figure out the character's next action. The post-frame update contains the appropriate character ID to make sense of the action state present here.
