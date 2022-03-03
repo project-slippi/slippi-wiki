@@ -28,7 +28,7 @@ This document will outline the details of the Slippi Dolphin communication file 
 
 Additional data in the JSON will not interfere with playback as long as the JSON continues to be valid.
 
-## Exampe
+## Example
 ```
 {
 	"mode":"normal",
