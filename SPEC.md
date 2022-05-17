@@ -141,6 +141,8 @@ Offsets are **indexed from the start of the Game Info Block**. To get the offset
 | 0x69 + 0x24*i* | Team ID | uint8 | Value only relevant if `is teams` is true. 0 = red, 1 = blue, 2 = green
 | 0x6C + 0x24*i* | Player Bitfield | uint8 | See the table [Player Bitfield](#player-bitfield)
 | 0x6F + 0x24*i* | CPU Level | uint8 | Indicates what the CPU level is. Still specified on human players
+| 0x70 + 0x24*i* | Damage Start | uint16 | This is the percent the fighter's first stock will start at
+| 0x72 + 0x24*i* | Damage Spawn | uint16 | This is the percent the fighter's stocks will start at. This value will be used for first stock as well if Damage Start is 0
 | 0x78 + 0x24*i* | Offense Ratio | float | Indicates a knockback multiplier when this player hits another
 | 0x7C + 0x24*i* | Defense Ratio | float | Indicates a knockback multiplier when this player is hit
 | 0x80 + 0x24*i* | Model Scale | float | Indicates a multiplier on the size scaling of the character's model
