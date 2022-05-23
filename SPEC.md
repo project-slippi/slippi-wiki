@@ -524,7 +524,7 @@ This event indicates the end of the game has occurred. This event will occur exa
 | 0x0 | Command Byte | uint8 | (0x39) The command byte for the game end event | 0.1.0
 | 0x1 | Game End Method | uint8 | See table [Game End Method](#game-end-method) | 0.1.0
 | 0x2 | LRAS Initiator | int8 | Index of player that LRAS'd. -1 if not applicable | 2.0.0
-| 0x3 | Player Placements | int32 | See table [Player Placements](#player-placements) | PENDING
+| 0x3 | Player Placements | uint8[4] | See table [Player Placements](#player-placements) | PENDING
 
 #### Game End Method
 The behavior of this field depends on the version. Found in [Game End](#game-end).
@@ -535,7 +535,23 @@ The behavior of this field depends on the version. Found in [Game End](#game-end
 | 2.0.0 | 1 = TIME!, 2 = GAME!, 7 = No Contest
 
 #### Player Placements
-PENDING DESCRIPTION AND EXAMPLES
+An array of fixed size(4) of uint8 containing the team index on the higher bit and the position on the lower bit.
+The array is ordered by players ports.
+
+> Note that Team Id only matters if the "is Teams" flag is turned on on the [Game Info Block](#game-info-block)
+
+| Value | Team | Position
+| --- | --- | --- |
+| 0x11 | Blue | Second Place
+| 0x00 | Red | First Place
+| 0x20 | Green | First Place
+
+##### Example 
+
+```cpp
+{0x01, 0xFF, 0xFF, 0x00}; //=> P1 (Second Place) VS P4 (First Place) 
+{0x21, 0x22, 0x13, 0x10}; //=> P1&P2 [Green Team] VS P3&P4 [Blue Team] (Winner determined by player with placement 0)
+```
 
 # The `metadata` Element
 The metadata element contains any miscellaneous data relevant to the game but not directly provided by Melee. Unlike all the other data defined in this doc, which was basically stored as a binary stream, the data in the metadata element is pure UBJSON.
