@@ -524,6 +524,7 @@ This event indicates the end of the game has occurred. This event will occur exa
 | 0x0 | Command Byte | uint8 | (0x39) The command byte for the game end event | 0.1.0
 | 0x1 | Game End Method | uint8 | See table [Game End Method](#game-end-method) | 0.1.0
 | 0x2 | LRAS Initiator | int8 | Index of player that LRAS'd. -1 if not applicable | 2.0.0
+| 0x3 | Player Placements | int8[4] | 0-indexed placement positions. -1 if player not in game | 3.13.0
 
 #### Game End Method
 The behavior of this field depends on the version. Found in [Game End](#game-end).
