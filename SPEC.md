@@ -326,7 +326,7 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x31 | Physical Buttons | uint16 | See the table [Physical Buttons](#physical-buttons) | 0.1.0
 | 0x33 | Physical L Trigger | float | Physical analog value of L trigger (range: [0, 1]). Useful for APM | 0.1.0
 | 0x37 | Physical R Trigger | float | Physical analog value of R trigger (range: [0, 1]). Useful for APM | 0.1.0
-| 0x3B | X analog for UCF | uint8 | Raw X axis analog controller input. Used by UCF dashback code | 1.2.0
+| 0x3B | X analog for UCF | int8 | Raw X axis analog controller input. Used by UCF dashback code | 1.2.0
 | 0x3C | Percent | float | Current damage percent | 1.4.0
 
 #### Processed Buttons
