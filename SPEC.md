@@ -324,8 +324,8 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x29 | Trigger | float | Processed analog value of trigger (range: [0, 1]) | 0.1.0
 | 0x2D | Processed Buttons | uint32 | See the table [Processed Buttons](#processed-buttons) | 0.1.0
 | 0x31 | Physical Buttons | uint16 | See the table [Physical Buttons](#physical-buttons) | 0.1.0
-| 0x33 | Physical L Trigger | float | Physical analog value of L trigger (range: [0, 1]). Useful for APM | 0.1.0
-| 0x37 | Physical R Trigger | float | Physical analog value of R trigger (range: [0, 1]). Useful for APM | 0.1.0
+| 0x33 | Physical L Trigger | float | Physical analog value of L trigger (range: [0, 1]). Useful for IPM | 0.1.0
+| 0x37 | Physical R Trigger | float | Physical analog value of R trigger (range: [0, 1]). Useful for IPM | 0.1.0
 | 0x3B | X analog for UCF | int8 | Raw X axis analog controller input. Used by UCF dashback code | 1.2.0
 | 0x3C | Percent | float | Current damage percent | 1.4.0
 
@@ -353,7 +353,7 @@ Look at bits set to see processed buttons pressed. Lower uint16 has the same str
 | 32 | 0x80000000 | Any trigger
 
 #### Physical Buttons
-Use bits set to determine physical buttons pressed. Useful for APM. Found in [Pre-Frame Update](#pre-frame-update).
+Use bits set to determine physical buttons pressed. Useful for IPM. Found in [Pre-Frame Update](#pre-frame-update).
 
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
