@@ -111,8 +111,8 @@ This is data that will be transferred as the game is starting. It includes all t
 | 0x249 + 0x1D*i* | Slippi UID | string | Firebase UIDs of players if using Slippi Online. *i* is 0-3 depending on the character port. Max 28 characters + null terminator | 3.11.0
 | 0x2BD | Language Option | u8 | 0 = Japanese, 1 = English. Needed for HRC because stage is different between the languages | 3.12.0
 | 0x2BE | Match ID | string | An ID consisting of the mode and current time (i.e. `mode.unranked-2022-12-20T06:52:39.18-0`). Max 50 characters + null terminator | 3.14.0
-| 0x2F1 | Game Index | u32 | Index of the game in the current set | 3.14.0
-| 0x2F5 | Tiebreaker Index | u32 | Index of the tiebreaker for the current game, game index should be considered | 3.14.0
+| 0x2F1 | Game Index | u32 | Index of the game in the current set, starts at 1 | 3.14.0
+| 0x2F5 | Tiebreaker Index | u32 | Index of the tiebreaker for the current game, will be 0 if not a tiebreak game. game index should be considered when looking at this value | 3.14.0
 
 #### Game Info Block
 Offsets are **indexed from the start of the Game Info Block**. To get the offset of from the [Game Start Block](#game-start), add `0x5` to the offset.
