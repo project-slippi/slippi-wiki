@@ -423,13 +423,13 @@ Found in [Post-Frame Update](#post-frame-update).
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
 | 1 | 0x01 | Unknown
-| 2 | 0x02 | Unknown
+| 2 | 0x02 | Is absorber active (e.g. G&W bucket)
 | 3 | 0x04 | Unknown
-| 4 | 0x08 | Unknown
+| 4 | 0x08 | Active when reflect does not change ownership (mew2 side b)
 | 5 | 0x10 | Is reflect active
-| 6 | 0x20 | Unknown
-| 7 | 0x40 | Unknown
-| 8 | 0x80 | Unknown
+| 6 | 0x20 | Related to jabs
+| 7 | 0x40 | Related to jabs
+| 8 | 0x80 | Related to IASA but not reliably
 
 #### State Bit Flags 2
 Found in [Post-Frame Update](#post-frame-update).
@@ -438,9 +438,9 @@ Found in [Post-Frame Update](#post-frame-update).
 | --- | --- | --- |
 | 1 | 0x01 | Unknown
 | 2 | 0x02 | Unknown
-| 3 | 0x04 | Has intangibility or invincibility
+| 3 | 0x04 | Has temporary intangibility or invincibility from state
 | 4 | 0x08 | Is fastfalling
-| 5 | 0x10 | Unknown
+| 5 | 0x10 | Is defender in hitlag (does not count shield hitlag)
 | 6 | 0x20 | Is in hitlag
 | 7 | 0x40 | Unknown
 | 8 | 0x80 | Unknown
@@ -452,7 +452,7 @@ Found in [Post-Frame Update](#post-frame-update).
 | --- | --- | --- |
 | 1 | 0x01 | Unknown
 | 2 | 0x02 | Unknown
-| 3 | 0x04 | Unknown
+| 3 | 0x04 | Is holding another character due to grab/command grab
 | 4 | 0x08 | Unknown
 | 5 | 0x10 | Unknown
 | 6 | 0x20 | Unknown
@@ -479,10 +479,10 @@ Found in [Post-Frame Update](#post-frame-update).
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
 | 1 | 0x01 | Unknown
-| 2 | 0x02 | Unknown
+| 2 | 0x02 | Is cloaking device
 | 3 | 0x04 | Unknown
 | 4 | 0x08 | Is follower (e.g. Nana)
-| 5 | 0x10 | Is in action state Sleep
+| 5 | 0x10 | Is inactive (zelda/shiek when opposite is in play, 0 stock teammate, etc.) Bit should always be 0 in replays.
 | 6 | 0x20 | Unknown
 | 7 | 0x40 | Is dead
 | 8 | 0x80 | Is offscreen
