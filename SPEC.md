@@ -438,7 +438,7 @@ Found in [Post-Frame Update](#post-frame-update).
 | --- | --- | --- |
 | 1 | 0x01 | Unknown
 | 2 | 0x02 | Unknown
-| 3 | 0x04 | Has temporary intangibility or invincibility from state
+| 3 | 0x04 | Has temporary intangibility or invincibility from subaction
 | 4 | 0x08 | Is fastfalling
 | 5 | 0x10 | Is defender in hitlag (does not count shield hitlag)
 | 6 | 0x20 | Is in hitlag
