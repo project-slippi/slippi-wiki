@@ -510,7 +510,7 @@ A maximum of 15 items per frame can have their data extracted. This information 
 | 0x29 | Misc #4 | uint8 | Samus/Mewtwo current charged power | 3.2.0
 | 0x2A | Owner | int8 | 0-3 for the player that owns the item. -1 when not owned | 3.6.0
 
-### Turnip Types
+### Turnip Faces
 Found in [Item Update](#item-update)
 | Value | Smile |
 | --- | --- |
