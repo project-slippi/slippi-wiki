@@ -417,6 +417,8 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x45 | Self-induced Ground x Speed  | float | Negative means left, Positive means right | 3.5.0
 | 0x49 | Hitlag frames remaining  | float | 0 means "not in hitlag" | 3.8.0
 | 0x4D | Animation Index | uint32 | Indicates the animation the character is in. For Wait: 2 = Wait1, 3 = Wait2, 4 = Wait3 | 3.11.0
+| 0x51 | Instance Hit By | uint16 | Instance ID of the player/item that last hit this player | 3.16.0
+| 0x53 | Instance ID | uint16 | Serially generated, unique ID for each new action state across all fighters. Resets to 0 temporarily on death. | 3.16.0
 
 #### State Bit Flags 1
 Found in [Post-Frame Update](#post-frame-update).
@@ -510,6 +512,7 @@ A maximum of 15 items per frame can have their data extracted. This information 
 | 0x28 | Misc #3 | uint8 | Samus/Mewtwo isLaunched boolean for charge shot | 3.2.0
 | 0x29 | Misc #4 | uint8 | Samus/Mewtwo current charged power | 3.2.0
 | 0x2A | Owner | int8 | 0-3 for the player that owns the item. -1 when not owned | 3.6.0
+| 0x2B | Instance ID | uint16 | Inherited instance ID of the owner. 0 when not owned| 3.16.0
 
 ### Frame Bookend
 The frame bookend is a simple event that can be used to determine that the entire frame's worth of data has been transferred/processed. It is always sent at the very end of the frame's transfer.
