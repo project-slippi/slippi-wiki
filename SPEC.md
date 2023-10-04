@@ -551,7 +551,7 @@ The metadata element can be read individually to save processing time with a bit
 | playedOn | string | Platform the game was played on (values include `dolphin`, `nintendont`, and `network`)
 | consoleNick | string | The name of the console the replay was created on.
 
-### Players Metadata
+#### Players Metadata
 | Key | Type   | Description                                                                                                 |
 |-----|--------|-------------------------------------------------------------------------------------------------------------|
 | 0-3 | object | Key is 0-indexed Controller port of the player. Contains the details of the player for the respective port. |
@@ -567,7 +567,7 @@ The metadata element can be read individually to save processing time with a bit
 |------|-------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 0-32 | int32 | Key is the Melee internal character ID. Value is the number of frames that character was played for.  May have two of these fields if Zelda/Sheik or Ice-Climbers were played. |
 
-### Names Metadata
+#### Names Metadata
 | Key     | Type   | Description                                                                                                          |
 |---------|--------|----------------------------------------------------------------------------------------------------------------------|
 | netplay | string | Dolphin netplay name, or Slippi display name of the player. Value depends on the environment the game was played in. |
