@@ -551,10 +551,59 @@ The metadata element can be read individually to save processing time with a bit
 | playedOn | string | Platform the game was played on (values include `dolphin`, `nintendont`, and `network`)
 | consoleNick | string | The name of the console the replay was created on.
 
-#### Players Metadata
-| Key | Type | Description |
-| --- | --- | --- |
-| characters | object | Contains the number of frames for which a character was used. This is mostly useful for Zelda/Sheik
-| names | object | Contains the Dolphin netplay name or Slippi Online Display Name depending on which form of netplay was used. Will also contain the connect code for Slippi Online if applicable.
+### Players Metadata
+| Key | Type   | Description                                                                                                 |
+|-----|--------|-------------------------------------------------------------------------------------------------------------|
+| 0-3 | object | Key is 0-indexed Controller port of the player. Contains the details of the player for the respective port. |
 
-Example: `{'characters': {'18': 5209}, 'names': {'netplay': 'Player', 'code': 'ABCD#0'}}` means the player used Marth (internal character ID `18`) for all `5209` frames of the game and had the Display Name `Player` and Connect Code `ABCD#0`. The netplay name from Dolphin and Display Name from Slippi Online use the same key.
+#### Player Metadata
+| Key        | Type   | Description                                                                                                                                                                      |
+|------------|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| characters | object | Contains the number of frames for which a character was used. This is mostly useful for Zelda/Sheik                                                                              |
+| names      | object | Contains the Dolphin netplay name or Slippi Online Display Name depending on which form of netplay was used. Will also contain the connect code for Slippi Online if applicable. |
+
+#### Characters Metadata
+| Key  | Type  | Description                                                                                                                                                                    |
+|------|-------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 0-32 | int32 | Key is the Melee internal character ID. Value is the number of frames that character was played for.  May have two of these fields if Zelda/Sheik or Ice-Climbers were played. |
+
+### Names Metadata
+| Key     | Type   | Description                                                                                                          |
+|---------|--------|----------------------------------------------------------------------------------------------------------------------|
+| netplay | string | Dolphin netplay name, or Slippi display name of the player. Value depends on the environment the game was played in. |
+| code    | string | The Slippi Online connect code for this player.                                                                      |
+
+Example (in JSON format): 
+
+```json
+{
+    "metadata": {
+    "startAt": "2018-06-22T07:52:59Z",
+    "lastFrame": 12345,
+    "players": {
+        "0": {
+            "names": {
+                "netplay": "I love Slippi!",
+                "code": "SLIP#123"
+            },
+            "characters": {
+                "15": 12345
+            }
+        },
+        "1": {
+            "names": {
+                "netplay": "Some Netplayer",
+                "code": "ASDF#519"
+            },
+            "characters": {
+                "7": 12300,
+                "19": 45
+            }
+        }
+    },
+    "playedOn": "dolphin"
+}   
+}
+```
+Here, we have two players. The first, in port 1 and named "I love Slippi!", played Jigglypuff (ID 15) for the match. 
+The second in port two and named "Some Netplayer" played Sheik (ID 7) for 12300 frames and Zelda (ID 19) for 45 frames.
