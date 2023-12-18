@@ -320,7 +320,7 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0xB | Action State ID | uint16 | Indicates the [action state](#melee-ids) the character is in. Very useful for stats | 0.1.0
 | 0xD | X Position | float | X position of character | 0.1.0
 | 0x11 | Y Position | float | Y position of character | 0.1.0
-| 0x15 | Facing Direction | float | -1 = facing left, +1 = facing right | 0.1.0
+| 0x15 | Facing Direction | float | -1 = facing left, +1 = facing right, 0 in some rare cases with items | 0.1.0
 | 0x19 | Joystick X | float | Processed analog value of X axis of joystick (range: [-1, 1]) | 0.1.0
 | 0x1D | Joystick Y | float | Processed analog value of Y axis of joystick (range: [-1, 1]) | 0.1.0
 | 0x21 | C-Stick X | float | Processed analog value of X axis of C-stick (range: [-1, 1]) | 0.1.0
@@ -392,7 +392,7 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x8 | Action State ID | uint16 | Indicates the [action state](#melee-ids) the character is in. Very useful for stats | 0.1.0
 | 0xA | X Position | float | X position of character | 0.1.0
 | 0xE | Y Position | float | Y position of character | 0.1.0
-| 0x12 | Facing Direction | float | -1 = facing left, +1 = facing right | 0.1.0
+| 0x12 | Facing Direction | float | -1 = facing left, +1 = facing right, 0 in some rare cases with items | 0.1.0
 | 0x16 | Percent | float | Current damage percent | 0.1.0
 | 0x1A | Shield Size | float | Current size of shield (range: [0, 60]) | 0.1.0
 | 0x1E | Last Hitting Attack ID | uint8 | [ID](#melee-ids) of the last attack that hit a player. Attacks that "hit" reflectors, counters, or absorbers do not modify this field. Link/Young Link's shield behaves as an absorber. If a reflector is used and the reflected projectile hits the enemy, the ID of the projectile is used and not the ID of the reflector. This field corresponds to move staling. Any attack with ID 1 does not participate in staling. This field is set back to 0 on death | 0.1.0
@@ -500,7 +500,7 @@ A maximum of 15 items per frame can have their data extracted. This information 
 | 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 3.0.0
 | 0x5 | Type ID | uint16 | The [type of item](#melee-ids) this is | 3.0.0
 | 0x7 | State | uint8 | The state the item is in. Mostly undocumented, might differ per type | 3.0.0
-| 0x8 | Facing Direction | float | -1 = facing left, +1 = facing right | 3.0.0
+| 0x8 | Facing Direction | float | -1 = facing left, +1 = facing right, 0 in some cases | 3.0.0
 | 0xC | X Velocity | float | X velocity of item | 3.0.0
 | 0x10 | Y Velocity | float | Y velocity of item | 3.0.0
 | 0x14 | X Position | float | X position of item | 3.0.0
