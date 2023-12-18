@@ -88,7 +88,7 @@ This event should be the very first event in the byte stream. It enumerates all 
 | 0x0 | Command Byte | uint8 | (0x35) The command byte for the event payloads event
 | 0x1 | Payload Size | uint8 | The size in bytes of the payload for this event, including this byte (i.e. `3n+1`, where `n` is the number of commands to follow)
 | 0x2 + 0x3*i* | Other Command Byte | uint8 | A command byte that may be encountered in the byte stream. *i* is dependent on the payload size, the rest of the payload is all command/size pairs
-| 0x3 + 0x3*i* | Other Command Payload Size | uint16 | The size in bytes of the payload for the command (Note: some replays load a large-enough gecko code payload that the size for that event overflows)
+| 0x3 + 0x3*i* | Other Command Payload Size | uint16 | The size in bytes of the payload for the command (Note: some replays load a large-enough gecko code payload that the size for that event overflows. For message splitter events, length is implied by the [splitter fields](#message-splitter))
 
 ### Game Start
 This is data that will be transferred as the game is starting. It includes all the information required to initialize the game such as the game mode, settings, characters selected, stage selected. The entire block that contains all of this data is written out in the [`Game Info Block`](#game-info-block) but not all of it is understood/documented. This event will occur exactly once in the stream, immediately after the Event Payloads.
@@ -287,6 +287,8 @@ Found in [Game Info Block](#game-info-block).
 
 ### Message Splitter
 Some event payload messages are split into smaller messages due to size. Messages are continuously read until the `last message` boolean returns true. Currently the only event payload to use this is the `Gecko Codes` event.
+
+While internal messages contained within a message splitter may have a size defined in payload sizes, that size should be ignored and instead the size implied by the message splitter fields should be used.
 
 | Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
