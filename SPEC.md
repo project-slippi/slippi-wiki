@@ -44,6 +44,7 @@ Every event is defined by a one byte code followed by a payload. The following t
 | [Item Update](#item-update) | 0x3B | One event per frame per item with a maximum of 15 updates per frame. This information can be used for stats, training AIs, or visualization engines to handle items. Items include projectiles like lasers or needles | 3.0.0
 | [Frame Bookend](#frame-bookend) | 0x3C | An event that can be used to determine that the entire frame's worth of data has been transferred/processed | 3.0.0
 | Gecko List | 0x3D | An event that lists gecko codes. As it can be very large, the list is broken up into multiple messages | 3.3.0
+| [Message Splitter](#message-splitter) | 0x10 | A single part of a large message that has been split out. Currently only applies to Gecko List. | 3.3.0
 
 ### Data Types
 Ranges are specified in this document with inclusive notation, i.e. [0, 255] means that 0 and 255 are both valid values and so are any values in between.
