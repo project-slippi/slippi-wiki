@@ -427,9 +427,9 @@ Found in [Post-Frame Update](#post-frame-update).
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
 | 1 | 0x01 | Unknown
-| 2 | 0x02 | Unknown
+| 2 | 0x02 | Is absorber active (e.g. G&W bucket)
 | 3 | 0x04 | Unknown
-| 4 | 0x08 | Unknown
+| 4 | 0x08 | Active when reflect does not change projectile ownership (mewtwo side b)
 | 5 | 0x10 | Is reflect active
 | 6 | 0x20 | Unknown
 | 7 | 0x40 | Unknown
@@ -442,9 +442,9 @@ Found in [Post-Frame Update](#post-frame-update).
 | --- | --- | --- |
 | 1 | 0x01 | Unknown
 | 2 | 0x02 | Unknown
-| 3 | 0x04 | Has intangibility or invincibility
+| 3 | 0x04 | Has temporary intangibility or invincibility from subaction
 | 4 | 0x08 | Is fastfalling
-| 5 | 0x10 | Unknown
+| 5 | 0x10 | Is defender in hitlag (does not count shield hitlag)
 | 6 | 0x20 | Is in hitlag
 | 7 | 0x40 | Unknown
 | 8 | 0x80 | Unknown
@@ -456,7 +456,7 @@ Found in [Post-Frame Update](#post-frame-update).
 | --- | --- | --- |
 | 1 | 0x01 | Unknown
 | 2 | 0x02 | Unknown
-| 3 | 0x04 | Unknown
+| 3 | 0x04 | Is holding another character due to grab/command grab
 | 4 | 0x08 | Unknown
 | 5 | 0x10 | Unknown
 | 6 | 0x20 | Unknown
@@ -483,10 +483,10 @@ Found in [Post-Frame Update](#post-frame-update).
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
 | 1 | 0x01 | Unknown
-| 2 | 0x02 | Unknown
+| 2 | 0x02 | Is cloaking device
 | 3 | 0x04 | Unknown
 | 4 | 0x08 | Is follower (e.g. Nana)
-| 5 | 0x10 | Is in action state Sleep
+| 5 | 0x10 | Is inactive (zelda/shiek when opposite is in play, 0 stock teammate, etc.) Bit should always be 0 in replays.
 | 6 | 0x20 | Unknown
 | 7 | 0x40 | Is dead
 | 8 | 0x80 | Is offscreen
@@ -508,12 +508,25 @@ A maximum of 15 items per frame can have their data extracted. This information 
 | 0x1C | Damage Taken | uint16 | Amount of damage an item has taken | 3.0.0
 | 0x1E | Expiration Timer | float | Number of frames remaining before item expires. Can go into the negatives for certain items such as Link arrows | 3.0.0
 | 0x22 | Spawn ID | uint32 | Auto-incremented number whenever an item spawns: 0, 1, 2, 3, etc | 3.0.0
-| 0x26 | Misc #1 | uint8 | Samus missile type | 3.2.0
-| 0x27 | Misc #2 | uint8 | Peach turnip face | 3.2.0
+| 0x26 | Misc #1 | uint8 | Samus missile type (0 = Homing, 1 = Super)| 3.2.0
+| 0x27 | Misc #2 | uint8 | [Peach turnip face](#turnip-types) | 3.2.0
 | 0x28 | Misc #3 | uint8 | Samus/Mewtwo isLaunched boolean for charge shot | 3.2.0
 | 0x29 | Misc #4 | uint8 | Samus/Mewtwo current charged power | 3.2.0
 | 0x2A | Owner | int8 | 0-3 for the player that owns the item. -1 when not owned | 3.6.0
 | 0x2B | Instance ID | uint16 | Inherited instance ID of the owner. 0 when not owned| 3.16.0
+
+### Turnip Faces
+Found in [Item Update](#item-update)
+| Value | Smile |
+| --- | --- |
+| 0 | Smile |
+| 1 | T Eyes |
+| 2 | Line Eyes|
+| 3 | Circle Eyes |
+| 4 | Upward Curve |
+| 5 | Wink |
+| 6 | Dot Eyes |
+| 7 | Stitch Face |
 
 ### Frame Bookend
 The frame bookend is a simple event that can be used to determine that the entire frame's worth of data has been transferred/processed. It is always sent at the very end of the frame's transfer.
