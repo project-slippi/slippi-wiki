@@ -28,7 +28,7 @@ The application layer protocol takes place entirely using JSON and is *mostly* s
 ```
 {
   "type": "connect_request",
-  "cursor": INTEGER,
+  "cursor": INTEGER
 }
 ```
 
