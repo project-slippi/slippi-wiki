@@ -543,7 +543,7 @@ The frame bookend is a simple event that can be used to determine that the entir
 | 0x5 | Latest Finalized Frame | int32 | For non-rollback, this should always equal the frame number. For rollback, this indicates the index of a frame which is guaranteed not to happen again (finalized). This is very useful when reading a file in real-time to make sure you are processing "finalized" information | 3.7.0
 
 ### FOD Platforms
-This event only occurs on Fountain of Dreams, and is sent every frame the height of the platform is changing.
+This event only occurs on Fountain of Dreams, and is sent for each change in platform height. If both platforms are moving, there will be two events per frame.
 
 | Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
@@ -562,7 +562,7 @@ This event only occurs on Dreamland 64, and is sent whenever Whispy changes blow
 | 0x5 | Direction | uint8 | Which direction Whispy is blowing (0 = None, 1 = Left, 2 = Right) | 3.17.0
 
 ### Stadium Transformations
-This event only occurs on Pokemon Stadium, and is sent whenever the transformation event changes.
+This event only occurs on Pokemon Stadium, and is sent whenever the transformation event or transformation type changes.
 
 | Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
