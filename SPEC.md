@@ -44,9 +44,9 @@ Every event is defined by a one byte code followed by a payload. The following t
 | [Item Update](#item-update) | 0x3B | One event per frame per item with a maximum of 15 updates per frame. This information can be used for stats, training AIs, or visualization engines to handle items. Items include projectiles like lasers or needles | 3.0.0
 | [Frame Bookend](#frame-bookend) | 0x3C | An event that can be used to determine that the entire frame's worth of data has been transferred/processed | 3.0.0
 | Gecko List | 0x3D | An event that lists gecko codes. As it can be very large, the list is broken up into multiple messages | 3.3.0
-| [FOD Platforms](#fod-platforms) | 0x3F | This event records the height of Fountain of Dreams platforms | 3.17.0
-| [Whispy Blow Direction](#whispy-blow-direction) | 0x40 | This event records the direction that Whispy is blowing | 3.17.0
-| [Stadium Transformations](#stadium-transformations) | 0x41 | This event records the current Pokemon Stadium transformation | 3.17.0
+| [FOD Platforms](#fod-platforms) | 0x3F | This event records the height of Fountain of Dreams platforms | 3.18.0
+| [Whispy Blow Direction](#whispy-blow-direction) | 0x40 | This event records the direction that Whispy is blowing | 3.18.0
+| [Stadium Transformations](#stadium-transformations) | 0x41 | This event records the current Pokemon Stadium transformation | 3.18.0
 | [Message Splitter](#message-splitter) | 0x10 | A single part of a large message that has been split out. Currently only applies to Gecko List. | 3.3.0
 
 ### Data Types
@@ -549,29 +549,29 @@ This event only occurs on Fountain of Dreams, and is sent for each change in pla
 
 | Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
-| 0x0 | Command Byte | uint8 | (0x3F) The command byte for the FOD platform event | 3.17.0
-| 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 3.17.0
-| 0x5 | Platform | uint8 | Which platform has moved. (0 = Right, 1 = Left) | 3.17.0
-| 0x6 | Height | float | The platform's new height | 3.17.0
+| 0x0 | Command Byte | uint8 | (0x3F) The command byte for the FOD platform event | 3.18.0
+| 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 3.18.0
+| 0x5 | Platform | uint8 | Which platform has moved. (0 = Right, 1 = Left) | 3.18.0
+| 0x6 | Height | float | The platform's new height | 3.18.0
 
 ### Whispy Blow Direction
 This event only occurs on Dreamland 64, and is sent whenever Whispy changes blow directions.
 
 | Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
-| 0x0 | Command Byte | uint8 | (0x40) The command byte for the blow direction event | 3.17.0
-| 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 3.17.0
-| 0x5 | Direction | uint8 | Which direction Whispy is blowing (0 = None, 1 = Left, 2 = Right) | 3.17.0
+| 0x0 | Command Byte | uint8 | (0x40) The command byte for the blow direction event | 3.18.0
+| 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 3.18.0
+| 0x5 | Direction | uint8 | Which direction Whispy is blowing (0 = None, 1 = Left, 2 = Right) | 3.18.0
 
 ### Stadium Transformations
 This event only occurs on Pokemon Stadium, and is sent whenever the transformation event or transformation type changes.
 
 | Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
-| 0x0 | Command Byte | uint8 | (0x41) The command byte for the blow direction event | 3.17.0
-| 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 3.17.0
-| 0x5 | Transformation Event | uint16 | The subevent for each transformation. (2 = Initialize, 3 = On monitor, 4 = Previous transformation receding, 5 = New transformation rising, 6 = Finalize, 0 = Finished) | 3.17.0
-| 0x7 | Transformation Type | uint16 | The current or upcoming transformation. (3 = Fire, 4 = Grass, 5 = Normal, 6 = Rock, 9 = Water) | 3.17.0
+| 0x0 | Command Byte | uint8 | (0x41) The command byte for the blow direction event | 3.18.0
+| 0x1 | Frame Number | int32 | The number of the frame. Starts at -123. Frame 0 is when the timer starts counting down | 3.18.0
+| 0x5 | Transformation Event | uint16 | The subevent for each transformation. (2 = Initialize, 3 = On monitor, 4 = Previous transformation receding, 5 = New transformation rising, 6 = Finalize, 0 = Finished) | 3.18.0
+| 0x7 | Transformation Type | uint16 | The current or upcoming transformation. (3 = Fire, 4 = Grass, 5 = Normal, 6 = Rock, 9 = Water) | 3.18.0
 
 ### Game End
 This event indicates the end of the game has occurred. This event will occur exactly once, as the last event in the stream. (Note: there is an unresolved bug where Game End doesn't appear in some replays!)
