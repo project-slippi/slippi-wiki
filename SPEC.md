@@ -338,6 +338,8 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x3B | X analog for UCF | int8 | Raw X axis analog controller input. Used by UCF dashback code | 1.2.0
 | 0x3C | Percent | float | Current damage percent | 1.4.0
 | 0x40 | Y analog for UCF | int8 | Raw Y axis analog controller input | 3.15.0
+| 0x41 | X c-stick for UCF | int8 | Raw X axis c-stick input. Required for 1.0 cardinals | 3.17.0
+| 0x42 | Y c-stick for UCF | int8 | Raw Y axis c-stick input. Required for 1.0 cardinals | 3.17.0
 
 #### Processed Buttons
 Look at bits set to see processed buttons pressed. Lower uint16 has the same structure as the `Physical Buttons` field, see table [Physical Buttons](#physical-buttons). Found in [Pre-Frame Update](#pre-frame-update).
