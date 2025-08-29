@@ -589,7 +589,7 @@ The behavior of this field depends on the version. Found in [Game End](#game-end
 | Version | Values |
 | --- | --- |
 | 0.1.0 | 0 = Unresolved, 3 = resolved
-| 2.0.0 | 1 = TIME!, 2 = GAME!, 7 = No Contest
+| 2.0.0 | 0 = Unresolved, 1 = TIME!, 2 = GAME!, 3 = resolved, 7 = No Contest
 
 # The `metadata` Element
 The metadata element contains any miscellaneous data relevant to the game but not directly provided by Melee. Unlike all the other data defined in this doc, which was basically stored as a binary stream, the data in the metadata element is pure UBJSON.
