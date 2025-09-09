@@ -404,7 +404,7 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x1A | Shield Size | float | Current size of shield (range: [0, 60]) | 0.1.0
 | 0x1E | Last Hitting Attack ID | uint8 | [ID](#melee-ids) of the last attack that hit a player. Attacks that "hit" reflectors, counters, or absorbers do not modify this field. Link/Young Link's shield behaves as an absorber. If a reflector is used and the reflected projectile hits the enemy, the ID of the projectile is used and not the ID of the reflector. This field corresponds to move staling. Any attack with ID 1 does not participate in staling. This field is set back to 0 on death | 0.1.0
 | 0x1F | Current Combo Count | uint8 | The combo count as defined by the game | 0.1.0
-| 0x20 | Last Hit By | uint8 | The player that last hit this player | 0.1.0
+| 0x20 | Last Hit By | uint8 | The port that last hit this player. This value is bugged in Melee itself, and will be set to `6` in certain situations. | 0.1.0
 | 0x21 | Stocks Remaining | uint8 | Number of stocks remaining | 0.1.0
 | 0x22 | Action State Frame Counter | float | Number of frames action state has been active. Can have a fractional component for certain actions | 0.2.0
 | 0x26 | State Bit Flags 1 | uint8 | See table [State Bit Flags 1](#state-bit-flags-1) | 2.0.0
