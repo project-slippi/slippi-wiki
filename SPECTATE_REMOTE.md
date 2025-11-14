@@ -3,7 +3,7 @@ Spectate Remote Control allows a user to programmatically control Slippi Launche
 This is most useful for streaming netplay tournaments.
 
 ## API
-You must connect from the same to Spectate Remote Control from the same computer.
+You must connect to Spectate Remote Control from the same computer.
 Spectate Remote Control allows only 1 connection at a time.
 
 ### Protocol
