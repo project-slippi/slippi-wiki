@@ -37,6 +37,7 @@ The following events may be sent at any time
 message:
 {
   "op":"new-file-event",
+  "broadcastId":"q0ejrrUneJcA5v65nUVX13OYr0o2-oFTsLA8jxfP9GqqVt7kxYk",
   "dolphinId":"spectate-q0ejrrUneJcA5v65nUVX13OYr0o2-cYp8HZJ9FB3P3uW72b2dHM",
   "filePath":"C:\\Users\\jmlee337\\Documents\\Slippi\\Spectate\\Game_20240309T104448.slp"
 }
@@ -45,6 +46,7 @@ message:
 message:
 {
   "op":"game-end-event",
+  "broadcastId":"q0ejrrUneJcA5v65nUVX13OYr0o2-oFTsLA8jxfP9GqqVt7kxYk",
   "dolphinId":"spectate-q0ejrrUneJcA5v65nUVX13OYr0o2-cYp8HZJ9FB3P3uW72b2dHM"
 }
 ```
@@ -85,6 +87,7 @@ If `dolphinId` is not set, spectating will begin in a new window with a generate
 message:
 {
   "op":"spectate-broadcast-response",
+  "broadcastId":"q0ejrrUneJcA5v65nUVX13OYr0o2-oFTsLA8jxfP9GqqVt7kxYk",
   "dolphinId":"1710210546025remote0",
   "path":"C:\\Users\\jmlee337\\Documents\\Slippi\\Spectate"
 }
@@ -95,6 +98,7 @@ If `dolphinId` is set, spectating will begin in the corresponding dolphin window
 message:
 {
   "op":"spectate-broadcast-response",
+  "broadcastId":"q0ejrrUneJcA5v65nUVX13OYr0o2-oFTsLA8jxfP9GqqVt7kxYk",
   "dolphinId":"dolphin-id",
   "path":"C:\\Users\\jmlee337\\Documents\\Slippi\\Spectate"
 }
