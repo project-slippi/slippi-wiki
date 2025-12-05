@@ -104,8 +104,26 @@ message:
 }
 ```
 
+#### Stop Spectating Broadcast
+```
+> socket.send(JSON.stringify({op: "stop-broadcast-request", broadcastId: "PMmdJgqjWzWrMHmq2IbktBKpbcf2-4zXtnoxyBgA2jRwH6wYbtb"}));
+message:
+{
+  "op":"stop-broadcast-response",
+  "broadcastId":"PMmdJgqjWzWrMHmq2IbktBKpbcf2-4zXtnoxyBgA2jRwH6wYbtb",
+}
+```
+
 ### Request Errors
 Request errors are denoted by the presence of an `err` field in the response:
+```
+> socket.send(JSON.stringify({op: "invalid-request-op"}));
+message:
+{
+  "op":"invalid-request-op",
+  "err": "unknown op",
+}
+```
 ```
 > socket.send(JSON.stringify({op: "spectate-broadcast-request"}));
 message:
