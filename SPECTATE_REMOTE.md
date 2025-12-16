@@ -26,7 +26,8 @@ message:
   "spectatingBroadcasts": [
     {
       "broadcastId":"q0ejrrUneJcA5v65nUVX13OYr0o2-oFTsLA8jxfP9GqqVt7kxYk",
-      "dolphinId":"1713518126142broadcast0"
+      "dolphinId":"1713518126142broadcast0",
+      "filePath":null OR "C:\\Users\\jmlee337\\Documents\\Slippi\\Spectate\\Game_20240309T104448.slp"
     }
   ]
 }
@@ -47,7 +48,8 @@ message:
 {
   "op":"game-end-event",
   "broadcastId":"q0ejrrUneJcA5v65nUVX13OYr0o2-oFTsLA8jxfP9GqqVt7kxYk",
-  "dolphinId":"spectate-q0ejrrUneJcA5v65nUVX13OYr0o2-cYp8HZJ9FB3P3uW72b2dHM"
+  "dolphinId":"spectate-q0ejrrUneJcA5v65nUVX13OYr0o2-cYp8HZJ9FB3P3uW72b2dHM",
+  "filePath":"C:\\Users\\jmlee337\\Documents\\Slippi\\Spectate\\Game_20240309T104448.slp"
 }
 ```
 ```
