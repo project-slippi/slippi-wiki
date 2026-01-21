@@ -6,7 +6,7 @@ This document will outline the details of the Slippi Dolphin communication file 
 | Name | Type | Description |
 | --- | --- | --- |
 | mode | string | Possible values are `normal` (default), `queue`, and `mirror` |
-| replay | string | The path to the replay if in normal or mirror mode |
+| replay | string | The path to the replay if in normal or mirror mode; for Windows, this path must be *relative to the json file* |
 | startFrame | int | The frame you would like to start the replay on, default is `-123` |
 | endFrame | int | The frame you would like to end the replay on, default is `INT_MAX` |
 | commandId | string | Typically used to indicate that the replay has changed, but updating the value can also restart playback of the current replay or queue |
