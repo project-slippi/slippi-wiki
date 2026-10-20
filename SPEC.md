@@ -527,7 +527,7 @@ Found in [Post-Frame Update](#post-frame-update). Each bit is the game's own var
 | 3 | 0x04 | Down special lift used: tapping B no longer raises the character. Mario's and Dr. Mario's Tornado (0x2234), Luigi's Cyclone (0x222C)
 | 4 | 0x08 | Float used: Peach cannot float again yet. Set when her float flag (0x222C) is 0
 | 5 | 0x10 | Aerial tether used: Link, Young Link and Samus get an air attack from the same input. Bit value 0x02 of 0x2228, for all characters
-| 6 | 0x20 | Air item catch used: Z in the air (A with L or R held) comes out as an aerial instead of opening a window to catch an item, and no item can be caught in the air. Set when a catch window runs out, on a catch in the air and on a throw in the air. Bit value 0x40 of 0x2224, for all characters
+| 6 | 0x20 | Air item catch used: no item can be caught in the air (with Z, or A with L or R held) until the character is back on the ground. Set when a catch window runs out (an air dodge with A opens one), on a catch in the air and on a throw in the air. Bit value 0x40 of 0x2224, for all characters
 | 7 | 0x40 | Unused
 | 8 | 0x80 | Unused
 
