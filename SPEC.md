@@ -427,11 +427,11 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x4D | Animation Index | uint32 | Indicates the animation the character is in. For Wait: 2 = Wait1, 3 = Wait2, 4 = Wait3 | 3.11.0
 | 0x51 | Instance Hit By | uint16 | Instance ID of the player/item that last hit this player | 3.16.0
 | 0x53 | Instance ID | uint16 | Serially generated, unique ID for each new action state across all fighters. Resets to 0 temporarily on death. | 3.16.0
-| 0x55 | Stored Charge | uint8 | The charge a character keeps between uses of a move, as the game counts it (e.g. Giant Punch, Charge Shot). See table [Stored Charge](#stored-charge). 0 for characters without one | 3.20.0
-| 0x56 | Spent Bit Flags | uint8 | Things the character has used that the game has not given back yet, such as the lift of an aerial special. See table [Spent Bit Flags](#spent-bit-flags) | 3.20.0
-| 0x57 | Wall Jumps Used | uint8 | Wall jumps since the character last touched the ground. Each one after the first rises less | 3.20.0
-| 0x58 | Character Byte | uint8 | Kirby's copied ability, or Mr. Game & Watch's last two Judge numbers. See table [Character Byte](#character-byte). 0 for other characters | 3.20.0
-| 0x59 | Character Value | float or int32 | Bowser's Fire Breath fuel, Peach's float time, or Mr. Game & Watch's Oil Panic damage. The type depends on the character, see table [Character Value](#character-value). 0 for other characters | 3.20.0
+| 0x55 | Stored Charge | uint8 | The charge a character keeps between uses of a move, as the game counts it (e.g. Giant Punch, Charge Shot). See table [Stored Charge](#stored-charge). 0 for characters without one | 3.21.0
+| 0x56 | Spent Bit Flags | uint8 | Things the character has used that the game has not given back yet, such as the lift of an aerial special. See table [Spent Bit Flags](#spent-bit-flags) | 3.21.0
+| 0x57 | Wall Jumps Used | uint8 | Wall jumps since the character last touched the ground. Each one after the first rises less | 3.21.0
+| 0x58 | Character Byte | uint8 | Kirby's copied ability, or Mr. Game & Watch's last two Judge numbers. See table [Character Byte](#character-byte). 0 for other characters | 3.21.0
+| 0x59 | Character Value | float or int32 | Bowser's Fire Breath fuel, Peach's float time, or Mr. Game & Watch's Oil Panic damage. The type depends on the character, see table [Character Value](#character-value). 0 for other characters | 3.21.0
 
 #### State Bit Flags 1
 Found in [Post-Frame Update](#post-frame-update).
