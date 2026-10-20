@@ -514,10 +514,11 @@ Found in [Post-Frame Update](#post-frame-update). The value is the game's own co
 | Sheik | Needle Storm (needles held) | [0, 6] | 0x222C
 | Mr. Game & Watch | Oil Panic (shots absorbed) | [0, 3], 3 = full | 0x2238
 | Kirby | The copied Giant Punch, Charge Shot, Shadow Ball or Needle Storm | As the copied move | 0x22E8, 0x22D4, 0x22C8 or 0x22E0, by the copied ability (see [Character Byte](#character-byte))
+| Zelda | The needles Sheik holds while Zelda is in play, which she has again when she comes back. They stay through the switch and through Zelda's KOs | [0, 6] | Sheik's 0x222C. Sheik is the port's other fighter, asleep while Zelda plays: `transformed[1]` (static player block + 0x0D) picks her from the block's two fighter GObjs (+0xB0, +0xB4)
 | Others | | 0 |
 
 #### Spent Bit Flags
-Found in [Post-Frame Update](#post-frame-update). Each bit is the game's own variable at the character data offset given. A bit stays set until the game gives the thing back: most lifts come back on a plain landing, when the move itself touches the ground, or on respawn, but not on a landing during an aerial's landing lag; Luigi's comes back only when a Cyclone touches the ground, so it survives landings and KOs; the float and the tether come back on any action change on the ground.
+Found in [Post-Frame Update](#post-frame-update). Each bit is the game's own variable at the character data offset given. A bit stays set until the game gives the thing back: most lifts come back on a plain landing, when the move itself touches the ground, or on respawn, but not on a landing during an aerial's landing lag; Luigi's comes back only when a Cyclone touches the ground, so it survives landings and KOs; the float, the tether and the air item catch come back on any action change on the ground.
 
 | Bit Number | Bit Value | Description |
 | --- | --- | --- |
@@ -526,7 +527,7 @@ Found in [Post-Frame Update](#post-frame-update). Each bit is the game's own var
 | 3 | 0x04 | Down special lift used: tapping B no longer raises the character. Mario's and Dr. Mario's Tornado (0x2234), Luigi's Cyclone (0x222C)
 | 4 | 0x08 | Float used: Peach cannot float again yet. Set when her float flag (0x222C) is 0
 | 5 | 0x10 | Aerial tether used: Link, Young Link and Samus get an air attack from the same input. Bit value 0x02 of 0x2228, for all characters
-| 6 | 0x20 | Unused
+| 6 | 0x20 | Air item catch used: Z in the air (A with L or R held) comes out as an aerial instead of opening a window to catch an item, and no item can be caught in the air. Set when a catch window runs out, on a catch in the air and on a throw in the air. Bit value 0x40 of 0x2224, for all characters
 | 7 | 0x40 | Unused
 | 8 | 0x80 | Unused
 
@@ -536,7 +537,7 @@ Found in [Post-Frame Update](#post-frame-update).
 | Character | Value | Character Data Offset |
 | --- | --- | --- |
 | Kirby | Copied ability: the [internal character ID](#melee-ids) of the character whose neutral special he has. 4 (Kirby) when he has none | 0x2238
-| Mr. Game & Watch | Last two Judge numbers, each [0, 8] for hammers 1-9. Mask 0x0F: the most recent. Mask 0xF0: the one before it. The next Judge is never either of the two. Each stock starts at 0x01 | 0x222C (most recent), 0x2230 (the one before)
+| Mr. Game & Watch | Last two Judge numbers, each [0, 8] for hammers 1-9 (the number on the sign minus 1). Mask 0x0F: the most recent. Mask 0xF0: the one before it. The next Judge is never either of the two. Each stock starts at 0x01 | 0x222C (most recent), 0x2230 (the one before)
 | Others | 0 |
 
 #### Character Value
