@@ -427,6 +427,11 @@ This event will occur exactly once per frame per character (Ice Climbers are 2 c
 | 0x4D | Animation Index | uint32 | Indicates the animation the character is in. For Wait: 2 = Wait1, 3 = Wait2, 4 = Wait3 | 3.11.0
 | 0x51 | Instance Hit By | uint16 | Instance ID of the player/item that last hit this player | 3.16.0
 | 0x53 | Instance ID | uint16 | Serially generated, unique ID for each new action state across all fighters. Resets to 0 temporarily on death. | 3.16.0
+| 0x55 | Stored Charge | uint8 | The charge a character keeps between uses of a move, as the game counts it (e.g. Giant Punch, Charge Shot). See table [Stored Charge](#stored-charge). 0 for characters without one | 3.20.0
+| 0x56 | Spent Bit Flags | uint8 | What the character can only do once until the game resets it, usually on landing, such as an air special that only rises once. See table [Spent Bit Flags](#spent-bit-flags) | 3.20.0
+| 0x57 | Wall Jumps Used | uint8 | Wall jumps since the character last touched the ground. Each one after the first rises less | 3.20.0
+| 0x58 | Character Byte | uint8 | Kirby's copied ability, or Mr. Game & Watch's last two Judge numbers. See table [Character Byte](#character-byte). 0 for other characters | 3.20.0
+| 0x59 | Character Value | float or int32 | Bowser's Fire Breath fuel, Peach's float time, or Mr. Game & Watch's Oil Panic damage. The type depends on the character, see table [Character Value](#character-value). 0 for other characters | 3.20.0
 
 #### State Bit Flags 1
 Found in [Post-Frame Update](#post-frame-update).
@@ -497,6 +502,53 @@ Found in [Post-Frame Update](#post-frame-update).
 | 6 | 0x20 | Unknown
 | 7 | 0x40 | Is dead
 | 8 | 0x80 | Is offscreen
+
+#### Stored Charge
+Found in [Post-Frame Update](#post-frame-update). The value is the game's own counter, read from the character data at the offset given. It changes only when the game changes it, so it keeps the game's quirks: for example, without the PAL codes a hit during Donkey Kong's up special clears his Giant Punch charge, and with them it does not.
+
+| Character | Move | Range | Character Data Offset |
+| --- | --- | --- | --- |
+| Donkey Kong | Giant Punch (arm swings) | [0, 10], 10 = full | 0x222C
+| Samus | Charge Shot | [0, 7], 7 = full | 0x2230
+| Mewtwo | Shadow Ball | [0, 7], 7 = full | 0x2234
+| Sheik | Needle Storm (needles held) | [0, 6]. They stay through a switch to Zelda and through Zelda's KOs, and Sheik has them again when she comes back | 0x222C
+| Mr. Game & Watch | Oil Panic (shots absorbed) | [0, 3], 3 = full | 0x2238
+| Kirby | The copied Giant Punch, Charge Shot, Shadow Ball or Needle Storm | As the copied move | 0x22E8, 0x22D4, 0x22C8 or 0x22E0, by the copied ability (see [Character Byte](#character-byte))
+| Others | | 0, Zelda included (even while her sleeping Sheik holds needles) |
+
+#### Spent Bit Flags
+Found in [Post-Frame Update](#post-frame-update). Each bit is the game's own variable at the character data offset given. The air specials are the ones that only help once in the air: no character has two of them on the same special, so one bit per special covers everyone. A bit stays set until the game resets it: most air specials come back on a plain landing, when the move itself touches the ground, or on respawn, but not on a landing during an aerial's landing lag; Luigi's comes back only when a Cyclone touches the ground, so it survives landings and KOs; the float, the tether and the air item catch come back on any action change on the ground.
+
+| Bit Number | Bit Value | Description |
+| --- | --- | --- |
+| 1 | 0x01 | Air neutral-B spent: an aerial use no longer rises. Peach's Toad (0x2240), Ice Climbers' Ice Shot (0x224C, Popo and Nana each in their own event), Kirby's copied Toad (0x22F8) or Ice Shot (0x22F0)
+| 2 | 0x02 | Air side-B spent: an aerial use no longer rises. Mario's and Dr. Mario's Cape (0x2238), Marth's Dancing Blade and Roy's Double-Edge Dance (0x222C), Mewtwo's Confusion (0x223C), Kirby's Hammer (0x2290)
+| 3 | 0x04 | Air down-B spent: mashing B no longer raises the character (Tornado and Cyclone only count once B is mashed into a rise). Mario's and Dr. Mario's Tornado (0x2234), Luigi's Cyclone (0x222C)
+| 4 | 0x08 | Peach's float spent: she cannot float again yet. Set when her float flag (0x222C) is 0
+| 5 | 0x10 | Aerial tether spent: Link, Young Link and Samus get an air attack from the same input. Bit value 0x02 of 0x2228, for all characters
+| 6 | 0x20 | Air item catch spent: no item can be caught in the air (with Z, or A with L or R held) until the character is back on the ground. Set when a catch window runs out (an air dodge with A opens one), on a catch in the air and on a throw in the air. Bit value 0x40 of 0x2224, for all characters
+| 7 | 0x40 | Unused
+| 8 | 0x80 | Unused
+
+#### Character Byte
+Found in [Post-Frame Update](#post-frame-update).
+
+| Character | Value | Character Data Offset |
+| --- | --- | --- |
+| Kirby | Copied ability: the [internal character ID](#melee-ids) of the character whose neutral special he has. 4 (Kirby) when he has none | 0x2238
+| Mr. Game & Watch | Last two Judge numbers, each [0, 8] for hammers 1-9 (the number on the sign minus 1). Mask 0x0F: the most recent. Mask 0xF0: the one before it. The next Judge is never either of the two. Each stock starts at 0x01 | 0x222C (most recent), 0x2230 (the one before)
+| Others | 0 |
+
+#### Character Value
+Found in [Post-Frame Update](#post-frame-update). The four bytes are copied from the character data as the game stores them, so the type depends on the character.
+
+| Character | Type | Value | Character Data Offset |
+| --- | --- | --- | --- |
+| Bowser | float | Fire Breath fuel, [40, 360], 360 = full. Drops 1 per frame of breath and recovers 0.7 per frame otherwise. With the game's own attributes the flame size (0x2230) is always the fuel + 20, so it is not recorded | 0x222C
+| Kirby | float | With Bowser's ability, the fuel of his copied Fire Breath, as for Bowser. 0 with any other ability | 0x22B0
+| Peach | float | Float frames left, 150 when a float starts. Only meaningful in her float and float-attack action states. Elsewhere it holds what was left when her last float ended | 0x2230
+| Mr. Game & Watch | int32 | Oil Panic's absorbed damage: the damage of the absorbed shots, summed. The spill deals `(int)(value * 1.5) + 5` before staling. Set to 0 on death, while the count in [Stored Charge](#stored-charge) stays | 0x223C
+| Others | | 0 |
 
 ### Item Update
 A maximum of 15 items per frame can have their data extracted. This information can be used for stats, training AIs, or visualization engines to handle items. Note that these aren't just for "items" it also includes all projectiles such as Fox lasers, Sheik needles, etc.
