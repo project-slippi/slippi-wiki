@@ -545,7 +545,7 @@ The frame bookend is a simple event that can be used to determine that the entir
 | 0x5 | Latest Finalized Frame | int32 | For non-rollback, this should always equal the frame number. For rollback, this indicates the index of a frame which is guaranteed not to happen again (finalized). This is very useful when reading a file in real-time to make sure you are processing "finalized" information | 3.7.0
 
 ### FOD Platforms
-This event only occurs on Fountain of Dreams, and is sent for each change in platform height. If both platforms are moving, there will be two events per frame.
+This event only occurs on Fountain of Dreams, and is sent for each change in platform height. If both platforms are moving, there will be two events per frame. The platforms always start at heights 20 (left) and 28 (right).
 
 | Offset | Name | Type | Description | Added |
 | --- | --- | --- | --- | --- |
