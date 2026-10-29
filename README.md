@@ -9,3 +9,7 @@
 | [Console Mirroring Guide](https://docs.google.com/document/d/1ezavBjqVGbVO8aqSa5EHfq7ZflrTCvezRYjOf51MOWg/edit?usp=sharing) | Guide to setting up a Wii to mirror gameplay on a computer. |
 | [Direct Connect Guide](https://docs.google.com/document/d/1HhcdCIEZC-FtFEiAMZjyuAuVlTY7-9NyWZWoY09yr0c/edit?usp=sharing) | Guide to using a computer in place of a router for the wii network connection. |
 | [Spectator Protocol](SPECTATOR_PROTOCOL.md)| Description of the networking protocol that Slippi's Dolphin uses for spectating. Mirroring on console uses a similar mechanism, but different transport protocol.|
+
+# License
+
+The contents of this repository are dedicated to the public domain under [CC0 1.0 Universal](LICENSE). You are free to copy, modify, and redistribute them for any purpose without asking permission or giving attribution.
